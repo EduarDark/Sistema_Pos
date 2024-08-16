@@ -1,12 +1,13 @@
+
 <!-- Main Footer -->
 <footer class="main-footer">
-    <!-- To the right -->
-    <div class="float-right d-none d-sm-inline">
-      Un sistema de punto de venta
-    </div>
-    <!-- Default to the left -->
-    <strong>Copyright &copy; 2014-2021 <a href="https://adminlte.io">AdminLTE.io</a>.</strong> All rights reserved.
-  </footer>
+  <!-- To the right -->
+  <div class="float-right d-none d-sm-inline">
+    Un sistema de punto de venta
+  </div>
+  <!-- Default to the left -->
+  <strong>Copyright &copy; 2024 <a href="https://ekesoft.net">EliasCassal </a>.</strong> Derechos reservados
+</footer>
 </div>
 <!-- ./wrapper -->
 
@@ -31,34 +32,40 @@
 <script src="assest/plugins/datatables-buttons/js/buttons.html5.min.js"></script>
 <script src="assest/plugins/datatables-buttons/js/buttons.print.min.js"></script>
 <script src="assest/plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
-
 <!-- SweetAlert2 -->
 <script src="assest/plugins/sweetalert2/sweetalert2.min.js"></script>
 
-
 <script src="assest/js/usuario.js"></script>
 <script src="assest/js/cliente.js"></script>
-<!-- <script src="assest/js/producto.js"></script>
-<script src="assest/js/factura.js"></script> -->
+<!--<script src="assest/js/producto.js"></script>
+<script src="assest/js/factura.js"></script>-->
 
-
-<!--------------------
-seccion de modals 
---------------------->
+<!--===============
+seccion de modals
+=================-->
 <div class="modal fade" id="modal-default">
-        <div class="modal-dialog">
-          <div class="modal-content" id="content-default">
+  <div class="modal-dialog">
+    <div class="modal-content" id="content-default">
+
+    </div>
+    <!-- /.modal-content -->
+  </div>
+  <!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->
+<div class="modal fade" id="modal-lg">
+        <div class="modal-dialog modal-lg">
+          <div class="modal-content" id="content-lg">
+
           </div>
           <!-- /.modal-content -->
         </div>
         <!-- /.modal-dialog -->
-</div>
-
+      </div>
 <!-- jquery-validation -->
 <script src="assest/plugins/jquery-validation/jquery.validate.min.js"></script>
 <script src="assest/plugins/jquery-validation/additional-methods.min.js"></script>
 <script src="assest/plugins/jquery-validation/localization/messages_es.js"></script>
-
 
 <script>
   $(function () {
@@ -66,7 +73,6 @@ seccion de modals
       "responsive": true, "lengthChange": false, "autoWidth": false,
       "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
     }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
-
 
   });
 </script>

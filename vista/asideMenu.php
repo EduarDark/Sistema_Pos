@@ -1,5 +1,4 @@
 
-
 <body class="hold-transition sidebar-mini">
 <div class="wrapper">
 
@@ -14,14 +13,13 @@
 
     <!-- Right navbar links -->
     <ul class="navbar-nav ml-auto">
-      <!-- Navbar Search -->
 
       <li class="nav-item">
         <a class="nav-link" data-widget="fullscreen" href="#" role="button">
           <i class="fas fa-expand-arrows-alt"></i>
         </a>
       </li>
-      
+
     </ul>
   </nav>
   <!-- /.navbar -->
@@ -61,6 +59,7 @@
               </p>
             </a>
             <ul class="nav nav-treeview">
+
               <li class="nav-item">
                 <a href="VUsuario" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
@@ -69,25 +68,25 @@
               </li>
             </ul>
           </li>
-
           <li class="nav-item">
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-user"></i>
               <p>
-                Clientes
+                clientes
                 <i class="right fas fa-angle-left"></i>
               </p>
             </a>
             <ul class="nav nav-treeview">
+
               <li class="nav-item">
                 <a href="VCliente" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Lista de clientes</p>
+                  <p>Lista de Clientes</p>
                 </a>
               </li>
             </ul>
           </li>
-
+          
           <li class="nav-item">
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-user"></i>
@@ -97,15 +96,15 @@
               </p>
             </a>
             <ul class="nav nav-treeview">
+
               <li class="nav-item">
                 <a href="VUsuario" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Lista de productos</p>
+                  <p>Lista de Productos</p>
                 </a>
               </li>
             </ul>
           </li>
-
           <li class="nav-item">
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-user"></i>
@@ -115,10 +114,11 @@
               </p>
             </a>
             <ul class="nav nav-treeview">
+
               <li class="nav-item">
                 <a href="VUsuario" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Emitir factura</p>
+                  <p>Emitir Factura</p>
                 </a>
               </li>
             </ul>
@@ -127,9 +127,10 @@
           <li class="nav-item">
             <a href="salir" class="nav-link">
               <i class="fas fa-door-open nav-icon"></i>
-                <p>Salir</p>
+                  <p>Salir</p>
             </a>
           </li>
+
         </ul>
       </nav>
       <!-- /.sidebar-menu -->

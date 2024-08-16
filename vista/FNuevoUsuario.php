@@ -1,4 +1,4 @@
-<form action="" id="FRegUsuario">
+ <form action="" id="FRegUsuario">
   <div class="modal-header bg-primary">
     <h4 class="modal-title">Registro nuevo usuario</h4>
     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -7,24 +7,23 @@
   </div>
   <div class="modal-body">
     <div class="form-group">
-      <label for="">Login Usuario</label>
-      <input type="text" class="form-control" name="login" id="login">
+      <label for="Login Usuario"></label>
+      <input type="text" class="form-control" name="Login" id="Login">
     </div>
     <div class="form-group">
-      <label for="">Password</label>
+      <label for="Password"></label>
       <input type="password" class="form-control" name="password" id="password">
     </div>
     <div class="form-group">
-      <label for="">Repetir password</label>
+      <label for="Repetir password"></label>
       <input type="password" class="form-control" name="vrPassword" id="vrPassword">
-    </div>
+    </di>
   </div>
   <div class="modal-footer justify-content-between">
     <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
     <button type="submit" class="btn btn-primary">Guardar</button>
   </div>
-</form>
-
+</form>        
 <script>
 $(function () {
   $.validator.setDefaults({
@@ -32,10 +31,9 @@ $(function () {
       regUsuario()
     }
   });
-  
   $('#FRegUsuario').validate({
     rules: {
-      login: {
+      Login: {
         required: true,
         minlength: 3,
       },
@@ -48,7 +46,7 @@ $(function () {
         minlength: 3
       },
     },
-
+ 
     errorElement: 'span',
     errorPlacement: function (error, element) {
       error.addClass('invalid-feedback');
@@ -63,4 +61,3 @@ $(function () {
   });
 });
 </script>
-

@@ -23,11 +23,8 @@
     <div class="content">
       <div class="container-fluid">
 
-
-
       </div><!-- /.container-fluid -->
     </div>
     <!-- /.content -->
   </div>
   <!-- /.content-wrapper -->
-
