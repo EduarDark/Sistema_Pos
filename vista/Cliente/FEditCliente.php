@@ -1,99 +1,126 @@
 <?php
-require_once "../../controlador/usuarioControlador.php";
-require_once "../../modelo/usuarioModelo.php";
 
-$id=$_GET["id"];
+require_once "../../controlador/clienteControlador.php";
+require_once "../../modelo/clienteModelo.php";
 
-$usuario=ControladorUsuario::ctrInfoUsuario($id);
+$id = $_GET["id"];
+$cliente = ControladorCliente::ctrInfoCliente($id);
 
 ?>
-<form action="" id="FEditUsuario">
-  <div class="modal-header bg-primary">
-    <h4 class="modal-title">Registro nuevo usuario</h4>
+
+
+
+<form class="form-horizontal" action="" id="FEditCliente">
+  <div class="modal-header">
+    <h4 class="modal-title">Actualizar Cliente</h4>
     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
       <span aria-hidden="true">&times;</span>
     </button>
   </div>
-  <div class="modal-body">
-    <div class="form-group">
-      <label for="">Login Usuario</label>
-      <input type="text" class="form-control" name="login" id="login" value="<?php echo $usuario["login_usuario"];?>" readonly>
-      <input type="hidden" name="idUsuario" value="<?php echo $usuario["id_usuario"];?>">
-    </div>
-    <div class="form-group">
-      <label for="">Password</label>
-      <input type="password" class="form-control" name="password" id="password" value="<?php echo $usuario["password"];?>">
-    </div>
-    <div class="form-group">
-      <label for="">Repetir password</label>
-      <input type="password" class="form-control" name="vrPassword" id="vrPassword" value="<?php echo $usuario["password"];?>">
-      <input type="hidden" value="<?php echo $usuario["password"];?>" name="passActual">
-    </div>
-    <div class="form-group">
-      <label for="">Perfil</label>
-      <select name="perfil" id="perfil" class="form-control">
-        <option value="Administrador" <?php if($usuario["perfil"]=="Administrador"):?>selected<?php endif;?>>Administrador</option>
-        <option value="Moderador" <?php if($usuario["perfil"]=="Moderador"):?>selected<?php endif;?>>Moderador</option>
-      </select>
-    </div>
-    <div class="form-group">
-     <label for="">Estado</label>
-      <div class="row">
-        <div class="col-sm-6">
-          <div class="custom-control custom-radio">
-            <input class="custom-control-input" type="radio" id="estadoActivo" name="estado" <?php if($usuario["estado"]=="1"):?>checked<?php endif;?> value="1">
-            <label for="estadoActivo" class="custom-control-label">Activo</label>
-          </div>
-        </div>
-        <div class="col-sm-6">
-          <div class="custom-control custom-radio">
-            <input class="custom-control-input" type="radio" id="estadoInactivo" name="estado" <?php if($usuario["estado"]=="0"):?>checked<?php endif;?> value="0">
-            <label for="estadoInactivo" class="custom-control-label">Inactivo</label>
-          </div>  
-        </div>
+  <div class="card-body">
+    <div class="form-group row">
+      <label for="razon_social" class="col-sm-3 col-form-label">ID CLIENTE:</label>
+      <div class="col-sm-9">
+        <input type="text" class="form-control" name="id" id="id" value="<?php echo $cliente["id_cliente"]; ?>" readonly>
       </div>
+    </div>
+    <div class="form-group row">
+      <label for="razon_social" class="col-sm-3 col-form-label">Razon Social :</label>
+      <div class="col-sm-9">
 
+        <!-- id_cliente	razon_social_cliente	nit_ci_cliente	direccion_cliente	nombre_cliente	telefono_cliente	email_cliente -->
+        <input type="text" class="form-control" id="razon_social" name="razon_social" value="<?php echo $cliente["razon_social_cliente"]; ?>">
+      </div>
+    </div>
+    <div class="form-group row">
+      <label for="nit_ci" class="col-sm-3 col-form-label">Nit/CI :</label>
+      <div class="col-sm-9">
+        <input type="text" class="form-control" id="nit_ci" name="nit_ci" value="<?php echo $cliente["nit_ci_cliente"]; ?>">
+      </div>
+    </div>
+    <div class="form-group row">
+      <label for="direccion" class="col-sm-3 col-form-label">Direccion :</label>
+      <div class="col-sm-9">
+        <input type="text" class="form-control" id="direccion" name="direccion" value="<?php echo $cliente["direccion_cliente"]; ?>">
+      </div>
+    </div>
+    <div class="form-group row">
+      <label for="nombre" class="col-sm-3 col-form-label">Nombre :</label>
+      <div class="col-sm-9">
+        <input type="text" class="form-control" id="nombre" name="nombre" value="<?php echo $cliente["nombre_cliente"]; ?>">
+      </div>
+    </div>
+    <div class="form-group row">
+      <label for="telefono" class="col-sm-3 col-form-label">Telefono :</label>
+      <div class="col-sm-9">
+        <!-- pattern="[0-9]{7,8}"  -->
+        <input type="tel" class="form-control" id="telefono" name="telefono" value="<?php echo $cliente["telefono_cliente"]; ?>" style="appearance: none;">
+      </div>
+    </div>
+    <div class="form-group row">
+      <label for="email" class="col-sm-3 col-form-label">Email :</label>
+      <div class="col-sm-9">
+        <input type="email" class="form-control" id="email" name="email" value="<?php echo $cliente["email_cliente"]; ?>">
+      </div>
     </div>
   </div>
-  <div class="modal-footer justify-content-between">
-    <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+  <!-- /.card-body -->
+  <div class="card-footer">
     <button type="submit" class="btn btn-primary">Guardar</button>
+    <button type="submit" class="btn btn-default float-right">Cancel</button>
   </div>
+  <!-- /.card-footer -->
 </form>
 
 <script>
-  $(function () {
+$(function() {
     $.validator.setDefaults({
-      submitHandler: function () {
-        editUsuario()
+      submitHandler: function() {
+        editCliente()
       }
     });
-
-    $('#FEditUsuario').validate({
+    $('#FEditCliente').validate({
       rules: {
 
-        password: {
+        razon_social: {
+          required: true,
+          minlength: 3,
+        },
+        nit_ci: {
           required: true,
           minlength: 3
         },
-        vrPassword: {
+        direccion: {
+          required: true,
+          minlength: 3
+        },
+        nombre: {
+          required: true,
+          minlength: 3
+        },
+        telefono: {
+          required: true,
+          minlength: 6,
+          //que sea solo numeros, no  caracteres
+          digits: true
+
+        },
+        email: {
           required: true,
           minlength: 3
         },
       },
-
       errorElement: 'span',
-      errorPlacement: function (error, element) {
+      errorPlacement: function(error, element) {
         error.addClass('invalid-feedback');
         element.closest('.form-group').append(error);
       },
-      highlight: function (element, errorClass, validClass) {
+      highlight: function(element, errorClass, validClass) {
         $(element).addClass('is-invalid');
       },
-      unhighlight: function (element, errorClass, validClass) {
+      unhighlight: function(element, errorClass, validClass) {
         $(element).removeClass('is-invalid');
       }
     });
   });
 </script>
-

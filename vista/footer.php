@@ -1,13 +1,13 @@
 
-<!-- Main Footer -->
-<footer class="main-footer">
-  <!-- To the right -->
-  <div class="float-right d-none d-sm-inline">
-    Un sistema de punto de venta
-  </div>
-  <!-- Default to the left -->
-  <strong>Copyright &copy; 2024 <a href="https://ekesoft.net">EliasCassal </a>.</strong> Derechos reservados
-</footer>
+  <!-- Main Footer -->
+  <footer class="main-footer">
+    <!-- To the right -->
+    <div class="float-right d-none d-sm-inline">
+      SISTEMA DE PUNTO DE VENTAS
+    </div>
+    <!-- Default to the left -->
+    <strong>Copyright &copy; 2024 <a href="https://adminlte.io">EduardoTejada</a>.</strong> UAJMS
+  </footer>
 </div>
 <!-- ./wrapper -->
 
@@ -37,31 +37,30 @@
 
 <script src="assest/js/usuario.js"></script>
 <script src="assest/js/cliente.js"></script>
-<!--<script src="assest/js/producto.js"></script>
-<script src="assest/js/factura.js"></script>-->
+<script src="assest/js/producto.js"></script>
 
-<!--===============
-seccion de modals
-=================-->
+<script src="assest/js/factura.js"></script>
+
+<!-- seccion de modelos -->
 <div class="modal fade" id="modal-default">
-  <div class="modal-dialog">
-    <div class="modal-content" id="content-default">
-
-    </div>
-    <!-- /.modal-content -->
-  </div>
-  <!-- /.modal-dialog -->
-</div>
-<!-- /.modal -->
-<div class="modal fade" id="modal-lg">
-        <div class="modal-dialog modal-lg">
-          <div class="modal-content" id="content-lg">
+        <div class="modal-dialog">
+          <div class="modal-content" id="content-default">
 
           </div>
           <!-- /.modal-content -->
         </div>
         <!-- /.modal-dialog -->
-      </div>
+</div>
+<div class="modal fade" id="modal-c">
+
+        <div class="modal-dialog">
+          <div class="modal-content" id="content-c">
+
+          </div>
+          <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+</div>
 <!-- jquery-validation -->
 <script src="assest/plugins/jquery-validation/jquery.validate.min.js"></script>
 <script src="assest/plugins/jquery-validation/additional-methods.min.js"></script>
@@ -70,10 +69,11 @@ seccion de modals
 <script>
   $(function () {
     $("#example1").DataTable({
-      "responsive": true, "lengthChange": false, "autoWidth": false,
+      "responsive": true, 
+      "lengthChange": false, 
+      "autoWidth": false,
       "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
     }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
-
   });
 </script>
 </body>
