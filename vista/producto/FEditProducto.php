@@ -1,99 +1,143 @@
 <?php
-require_once "../../controlador/usuarioControlador.php";
-require_once "../../modelo/usuarioModelo.php";
 
-$id=$_GET["id"];
+require_once "../../controlador/productoControlador.php";
+require_once "../../modelo/productoModelo.php";
 
-$usuario=ControladorUsuario::ctrInfoUsuario($id);
+$id = $_GET["id"];
+$producto = ControladorProducto::ctrInfoProducto($id);
 
 ?>
-<form action="" id="FEditUsuario">
-  <div class="modal-header bg-primary">
-    <h4 class="modal-title">Registro nuevo usuario</h4>
+
+<form class="form-horizontal" action="" id="FEditProducto">
+  <div class="modal-header">
+    <h4 class="modal-title">Actualizar Producto</h4>
     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
       <span aria-hidden="true">&times;</span>
     </button>
   </div>
-  <div class="modal-body">
-    <div class="form-group">
-      <label for="">Login Usuario</label>
-      <input type="text" class="form-control" name="login" id="login" value="<?php echo $usuario["login_usuario"];?>" readonly>
-      <input type="hidden" name="idUsuario" value="<?php echo $usuario["id_usuario"];?>">
+  <div class="card-body">
+    <div class="form-group row">
+      <label for="id_producto" class="col-sm-3 col-form-label">ID Producto:</label>
+      <div class="col-sm-9">
+        <input type="text" class="form-control" name="id" id="id" value="<?php echo $producto["id_producto"]; ?>" readonly>
+      </div>
     </div>
-    <div class="form-group">
-      <label for="">Password</label>
-      <input type="password" class="form-control" name="password" id="password" value="<?php echo $usuario["password"];?>">
+    <div class="form-group row">
+      <label for="cod_producto" class="col-sm-3 col-form-label">Código Producto:</label>
+      <div class="col-sm-9">
+        <input type="text" class="form-control" id="cod_producto" name="cod_producto" value="<?php echo $producto["cod_producto"]; ?>">
+      </div>
     </div>
-    <div class="form-group">
-      <label for="">Repetir password</label>
-      <input type="password" class="form-control" name="vrPassword" id="vrPassword" value="<?php echo $usuario["password"];?>">
-      <input type="hidden" value="<?php echo $usuario["password"];?>" name="passActual">
+    <div class="form-group row">
+      <label for="cod_producto_sin" class="col-sm-3 col-form-label">Código SIN:</label>
+      <div class="col-sm-9">
+        <input type="text" class="form-control" id="cod_producto_sin" name="cod_producto_sin" value="<?php echo $producto["cod_producto_sin"]; ?>">
+      </div>
     </div>
-    <div class="form-group">
-      <label for="">Perfil</label>
-      <select name="perfil" id="perfil" class="form-control">
-        <option value="Administrador" <?php if($usuario["perfil"]=="Administrador"):?>selected<?php endif;?>>Administrador</option>
-        <option value="Moderador" <?php if($usuario["perfil"]=="Moderador"):?>selected<?php endif;?>>Moderador</option>
-      </select>
+    <div class="form-group row">
+      <label for="nombre_producto" class="col-sm-3 col-form-label">Nombre Producto:</label>
+      <div class="col-sm-9">
+        <input type="text" class="form-control" id="nombre_producto" name="nombre_producto" value="<?php echo $producto["nombre_producto"]; ?>">
+      </div>
+    </div>
+    <div class="form-group row">
+      <label for="precio_producto" class="col-sm-3 col-form-label">Precio:</label>
+      <div class="col-sm-9">
+        <input type="number" class="form-control" id="precio_producto" name="precio_producto" value="<?php echo $producto["precio_producto"]; ?>" step="0.01">
+      </div>
+    </div>
+    <div class="form-group row">
+      <label for="unidad_medida" class="col-sm-3 col-form-label">Unidad Medida:</label>
+      <div class="col-sm-9">
+        <input type="text" class="form-control" id="unidad_medida" name="unidad_medida" value="<?php echo $producto["unidad_medida"]; ?>">
+      </div>
+    </div>
+    <div class="form-group row">
+      <label for="unidad_medida_sin" class="col-sm-3 col-form-label">Unidad Medida SIN:</label>
+      <div class="col-sm-9">
+        <input type="text" class="form-control" id="unidad_medida_sin" name="unidad_medida_sin" value="<?php echo $producto["unidad_medida_sin"]; ?>">
+      </div>
+    </div>
+    <div class="form-group row">
+      <label for="imagen_producto" class="col-sm-3 col-form-label">Imagen Producto:</label>
+      <div class="col-sm-9">
+        <input type="text" class="form-control" id="imagen_producto" name="imagen_producto" value="<?php echo $producto["imagen_producto"]; ?>">
+      </div>
     </div>
     <div class="form-group">
      <label for="">Estado</label>
       <div class="row">
         <div class="col-sm-6">
           <div class="custom-control custom-radio">
-            <input class="custom-control-input" type="radio" id="estadoActivo" name="estado" <?php if($usuario["estado"]=="1"):?>checked<?php endif;?> value="1">
-            <label for="estadoActivo" class="custom-control-label">Activo</label>
+            <input class="custom-control-input" type="radio" id="estadoActivo" name="disponible" <?php if($producto["disponible"]=="1"):?>checked<?php endif;?> value="1">
+            <label for="estadoActivo" class="custom-control-label">Disponible</label>
           </div>
         </div>
         <div class="col-sm-6">
           <div class="custom-control custom-radio">
-            <input class="custom-control-input" type="radio" id="estadoInactivo" name="estado" <?php if($usuario["estado"]=="0"):?>checked<?php endif;?> value="0">
+            <input class="custom-control-input" type="radio" id="estadoInactivo" name="disponible" <?php if($producto["disponible"]=="0"):?>checked<?php endif;?> value="0">
             <label for="estadoInactivo" class="custom-control-label">Inactivo</label>
           </div>  
         </div>
       </div>
-
-    </div>
   </div>
-  <div class="modal-footer justify-content-between">
-    <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+  <!-- /.card-body -->
+  <div class="card-footer">
     <button type="submit" class="btn btn-primary">Guardar</button>
+    <button type="button" class="btn btn-default float-right" data-dismiss="modal">Cancelar</button>
   </div>
+  <!-- /.card-footer -->
 </form>
 
 <script>
-  $(function () {
+$(function() {
     $.validator.setDefaults({
-      submitHandler: function () {
-        editUsuario()
+      submitHandler: function() {
+        editProducto();
       }
     });
-
-    $('#FEditUsuario').validate({
+    $('#FEditProducto').validate({
       rules: {
-
-        password: {
+        cod_producto: {
+          required: true,
+          minlength: 3,
+        },
+        cod_producto_sin: {
           required: true,
           minlength: 3
         },
-        vrPassword: {
+        nombre_producto: {
           required: true,
           minlength: 3
         },
+        precio_producto: {
+          required: true,
+          number: true
+        },
+        unidad_medida: {
+          required: true,
+          minlength: 1
+        },
+        unidad_medida_sin: {
+          required: true,
+          minlength: 1
+        },
+        imagen_producto: {
+          required: true,
+          minlength: 3
+        }
       },
-
       errorElement: 'span',
-      errorPlacement: function (error, element) {
+      errorPlacement: function(error, element) {
         error.addClass('invalid-feedback');
         element.closest('.form-group').append(error);
       },
-      highlight: function (element, errorClass, validClass) {
+      highlight: function(element, errorClass, validClass) {
         $(element).addClass('is-invalid');
       },
-      unhighlight: function (element, errorClass, validClass) {
+      unhighlight: function(element, errorClass, validClass) {
         $(element).removeClass('is-invalid');
       }
     });
   });
 </script>
-

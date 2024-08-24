@@ -1,78 +1,89 @@
 <?php
 require_once "conexion.php";
 
-class ModeloProducto{
-
+class ModeloProducto
+{
  
 
   static public function mdlInfoProductos(){
     $stmt=Conexion::conectar()->prepare("select * from producto");
     $stmt->execute();
-
     return $stmt->fetchAll();
-
-    $stmt->close();
-    $stmt->null;
+    
   }
 
-  static public function mdlRegProducto($data){
-    $loginProducto=$data["loginProducto"];
-    $password=$data["password"];
-    $perfil=$data["perfil"];
+  static public function mdlRegProducto($data)
+{
+    // Desglosamos el array $data en variables individuales
+    $cod_producto = $data["cod_producto"];
+    $cod_producto_sin = $data["cod_producto_sin"];
+    $nombre_producto = $data["nombre_producto"];
+    $precio_producto = $data["precio_producto"];
+    $unidad_medida = $data["unidad_medida"];
+    $unidad_medida_sin = $data["unidad_medida_sin"];
+    $imagen_producto = $data["imagen_producto"];
+    $disponible = $data["disponible"];
 
-    $stmt=Conexion::conectar()->prepare("insert into producto(login_producto, password, perfil) values('$loginProducto', '$password', '$perfil')");
+    var_dump($data);
 
-    if($stmt->execute()){
-      return "ok";
-    }else{
-      return "error";
+    // Creamos la consulta SQL para insertar los datos en la tabla producto
+    $stmt = Conexion::conectar()->prepare(
+        "INSERT INTO producto (cod_producto, cod_producto_sin, nombre_producto, precio_producto, unidad_medida, unidad_medida_sin, imagen_producto, disponible) 
+        VALUES ('$cod_producto', '$cod_producto_sin', '$nombre_producto', '$precio_producto', '$unidad_medida', '$unidad_medida_sin', '$imagen_producto', '$disponible')"
+    );
+
+    // Ejecutamos la consulta y verificamos si se realizó correctamente
+    if ($stmt->execute()) {
+        return "ok"; // Si la inserción fue exitosa, retornamos "ok"
+    } else {
+        return "error"; // Si hubo un error, retornamos "error"
     }
-
-    $stmt->close();
-    $stmt->null();
-  }
-
-  static public function mdlActualizarAcceso($fechaHora, $id){
-    $stmt=Conexion::conectar()->prepare("update producto set ultimo_login='$fechaHora' where id_producto='$id'");
-
-    if($stmt->execute()){
-      return "ok";
-    }else{
-      return "error";
-    }
-
-    $stmt->close();
-    $stmt->null();
-  }
+}
 
   static public function mdlInfoProducto($id){
     $stmt=Conexion::conectar()->prepare("select * from producto where id_producto=$id");
     $stmt->execute();
 
     return $stmt->fetch();
-
-    $stmt->close();
-    $stmt->null;
+    
   }
   
-  static public function mdlEditProducto($data){
+  static public function mdlEditProducto($data)
+{
+    // Desglosamos el array $data en variables individuales
+    $cod_producto = $data["cod_producto"];
+    $cod_producto_sin = $data["cod_producto_sin"];
+    $nombre_producto = $data["nombre_producto"];
+    $precio_producto = $data["precio_producto"];
+    $unidad_medida = $data["unidad_medida"];
+    $unidad_medida_sin = $data["unidad_medida_sin"];
+    $imagen_producto = $data["imagen_producto"];
+    $disponible = $data["disponible"];
+    $id_producto = $data["id_producto"]; // ID del producto a editar
 
-    $password=$data["password"];
-    $perfil=$data["perfil"];
-    $estado=$data["estado"];
-    $id=$data["id"];
+    // Creamos la consulta SQL para actualizar los datos en la tabla producto
+    $stmt = Conexion::conectar()->prepare(
+        "UPDATE producto 
+        SET 
+            cod_producto = '$cod_producto', 
+            cod_producto_sin = '$cod_producto_sin', 
+            nombre_producto = '$nombre_producto', 
+            precio_producto = '$precio_producto', 
+            unidad_medida = '$unidad_medida', 
+            unidad_medida_sin = '$unidad_medida_sin', 
+            imagen_producto = '$imagen_producto', 
+            disponible = '$disponible' 
+        WHERE id_producto = $id_producto"
+    );
 
-    $stmt=Conexion::conectar()->prepare("update producto set password='$password', perfil='$perfil', estado='$estado' where id_producto=$id");
-
-    if($stmt->execute()){
-      return "ok";
-    }else{
-      return "error";
+    // Ejecutamos la consulta y verificamos si se realizó correctamente
+    if ($stmt->execute()) {
+        return "ok"; // Si la actualización fue exitosa, retornamos "ok"
+    } else {
+        return "error"; // Si hubo un error, retornamos "error"
     }
+}
 
-    $stmt->close();
-    $stmt->null();
-  }
   
   static public function mdlEliProducto($id){
     $stmt=Conexion::conectar()->prepare("delete from producto where id_producto=$id");
@@ -83,7 +94,5 @@ class ModeloProducto{
       return "error";
     }
 
-    $stmt->close();
-    $stmt->null();
   }
 }

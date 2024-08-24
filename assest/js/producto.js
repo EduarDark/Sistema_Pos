@@ -1,10 +1,10 @@
-function MNuevoUsuario(){
+function MNuevoProducto(){
   $("#modal-default").modal("show")
 
   var obj=""
   $.ajax({
     type:"POST",
-    url:"vista/usuario/FNuevoUsuario.php",
+    url:"vista/producto/FNuevoProducto.php",
     data:obj,
     success:function(data){
       $("#content-default").html(data)
@@ -15,15 +15,15 @@ function MNuevoUsuario(){
 
 }
 
-function regUsuario(){
+function regProducto(){
 
-  var formData=new FormData($("#FRegUsuario")[0])
+  var formData=new FormData($("#FRegProducto")[0])
 
   if(formData.get("password")==formData.get("vrPassword")){
 
     $.ajax({
       type:"POST",
-      url:"controlador/usuarioControlador.php?ctrRegUsuario",
+      url:"controlador/productoControlador.php?ctrRegProducto",
       data:formData,
       cache:false,
       contentType:false,
@@ -35,7 +35,7 @@ function regUsuario(){
           Swal.fire({
             icon: 'success',
             showConfirmButton: false,
-            title: 'El usuario ha sido registrado',
+            title: 'El producto ha sido registrado',
             timer: 1000
           })
           setTimeout(function(){
@@ -60,14 +60,14 @@ function regUsuario(){
 
 }
 
-function MEditUsuario(id){
+function MEditProducto(id){
 
   $("#modal-default").modal("show")
 
   var obj=""
   $.ajax({
     type:"POST",
-    url:"vista/usuario/FEditUsuario.php?id="+id,
+    url:"vista/producto/FEditProducto.php?id="+id,
     data:obj,
     success:function(data){
       $("#content-default").html(data)
@@ -76,15 +76,13 @@ function MEditUsuario(id){
   })
 }
 
-function editUsuario(){
+function editProducto(){
 
-  var formData=new FormData($("#FEditUsuario")[0])
-
-  if(formData.get("password")==formData.get("vrPassword")){
+  var formData=new FormData($("#FEditProducto")[0])
 
     $.ajax({
       type:"POST",
-      url:"controlador/usuarioControlador.php?ctrEditUsuario",
+      url:"controlador/productoControlador.php?ctrEditProducto",
       data:formData,
       cache:false,
       contentType:false,
@@ -96,7 +94,7 @@ function editUsuario(){
           Swal.fire({
             icon: 'success',
             showConfirmButton: false,
-            title: 'El usuario ha sido actualizado',
+            title: 'Producto actualizado',
             timer: 1000
           })
           setTimeout(function(){
@@ -118,15 +116,13 @@ function editUsuario(){
 
   }
 
-}
-
-function MEliUsuario(id){
+function MEliProducto(id){
   var obj={
     id:id
   }
 
   Swal.fire({
-    title:"Estas seguro de eliminar este usuario?",
+    title:"Estas seguro de eliminar este producto?",
     showDenyButton:true,
     showCancelButton:false,
     confirmButtonText:'Confirmar',
@@ -135,7 +131,7 @@ function MEliUsuario(id){
     if(result.isConfirmed){
       $.ajax({
         type:"POST",
-        url:"controlador/usuarioControlador.php?ctrEliUsuario",
+        url:"controlador/productoControlador.php?ctrEliProducto",
         data:obj,
         success:function(data){
 
@@ -146,7 +142,7 @@ function MEliUsuario(id){
               icon: 'error',
               showConfirmButton: false,
               title: 'Error',
-              text:'El usuario no puede ser eliminado',
+              text:'El producto no puede ser eliminado',
               timer: 1000
             })
           }
