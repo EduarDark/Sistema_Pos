@@ -20,8 +20,9 @@
             <thead>
               <tr>
                 
-                <th>Cod. Producto</th>
+                
                 <th>Cod. Actividad</th>
+                <th>Cod. Producto SIN</th>
                 <th>Descripcion</th>
 
                 <td>

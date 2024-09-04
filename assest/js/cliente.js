@@ -1,5 +1,5 @@
 function MNuevoCliente() {
-  $("#modal-c").modal("show");
+  $("#modal-default").modal("show");
 
   var obj = "";
   $.ajax({
@@ -7,7 +7,7 @@ function MNuevoCliente() {
     url: "vista/cliente/FNuevoCliente.php",
     data: obj,
     success: function (data) {
-      $("#content-c").html(data);
+      $("#content-default").html(data);
     },
   });
 }
@@ -24,7 +24,7 @@ function regCliente() {
       if ((data = "ok")) {
         Swal.fire({
           icon: "success",
-          title: "Registro Exitoso :)",
+          title: "El cliente ha sido registrado",
           showConfirmButton: false,
           timer: 1000,
         });
@@ -34,7 +34,7 @@ function regCliente() {
         }, 1200);
       } else {
         Swal.fire({
-          title: "Error :(",
+          title: "Error",
           icon: "error",
           showConfirmButton: false,
           timer: 1000,
@@ -44,18 +44,21 @@ function regCliente() {
   });
 }
 
+
 function MEditCliente(id) {
-  $("#modal-c").modal("show");
+  $("#modal-default").modal("show");
   var obj = "";
   $.ajax({
     type: "POST",
     url: "vista/cliente/FEditCliente.php?id=" + id,
     data: obj,
     success: function (data) {
-      $("#content-c").html(data);
+      $("#content-default").html(data);
     },
   });
 }
+
+
 
 function editCliente() {
   var formData = new FormData($("#FEditCliente")[0]);
@@ -71,7 +74,7 @@ function editCliente() {
           Swal.fire({
             icon: "success",
             showConfirmButton: false,
-            title: "Cliente Actualizado :)",
+            title: "El cliente ha sido actualizado",
             timer: 1000,
           });
 
@@ -80,7 +83,7 @@ function editCliente() {
           }, 1200);
         } else {
           Swal.fire({
-            title: "Error :)",
+            title: "Error",
             icon: "error",
             showConfirmButton: false,
             timer: 1000,
@@ -90,13 +93,14 @@ function editCliente() {
     });
   }
 
+
 function MEliCliente(id) {
   var obj = {
     id: id,
   };
 
   Swal.fire({
-    title: "¿Estás seguro de eliminar este cliente?",
+    title: "Estás seguro de eliminar este cliente?",
     showDenyButton: true,
     showCancelButton: false,
     confirmButtonText: "Confirmar",
@@ -118,6 +122,9 @@ function MEliCliente(id) {
               text: "El cliente no pudo ser eliminado",
               timer: 1000,
             });
-          }},    });
-    }});
+          }
+        },
+      });
+    }
+  });
 }

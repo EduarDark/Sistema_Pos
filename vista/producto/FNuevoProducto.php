@@ -1,106 +1,119 @@
-<form class="form-horizontal" action="" id="FRegProducto">
-  <div class="modal-header">
-    <h4 class="modal-title">Registro Nuevo Producto</h4>
+<form action="" id="FRegProducto" enctype="multipart/form-data">
+  <div class="modal-header bg-primary">
+    <h4 class="modal-title">Registro nuevo producto</h4>
     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
       <span aria-hidden="true">&times;</span>
     </button>
   </div>
-  <div class="card-body">
-    <div class="form-group row">
-      <label for="cod_producto" class="col-sm-3 col-form-label">Código Producto:</label>
-      <div class="col-sm-9">
-        <input type="text" class="form-control" id="cod_producto" name="cod_producto" placeholder="Código del producto">
+    <div class="modal-body">
+      <div class="row">
+        <div class="col-sm-6">
+          <div class="form-group">
+            <label for="codProducto">Cod. Producto</label>
+            <input type="text" class="form-control" name="codProducto" id="codProducto">
+          </div>
+        </div>
+        <div class="col-sm-6">
+          <div class="form-group">
+            <label for="codProductoSIN">Cod. Producto SIN</label>
+            <input type="text" class="form-control" name="codProductoSIN" id="codProductoSIN">
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-6">
+          <div class="form-group">
+            <label for="desProducto">Descripcion</label>
+            <input type="text" class="form-control" name="desProducto" id="desProducto">
+          </div>
+        </div>
+        <div class="col-sm-6">
+          <div class="form-group">
+            <label for="preProducto">Precio</label>
+            <input type="text" class="form-control" name="preProducto" id="preProducto">
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-6">
+          <div class="form-group">
+            <label for="unidadMedidad">Unidad de medida</label>
+            <input type="text" class="form-control" name="unidadMedidad" id="unidadMedidad">
+          </div>
+        </div>
+        <div class="col-sm-6">
+          <div class="form-group">
+            <label for="unidadMedidadSIN">Unidad de medida SIN</label>
+            <input type="text" class="form-control" name="unidadMedidadSIN" id="unidadMedidadSIN">
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-6">
+          <div class="form-group">
+            <label for="imgProducto">Imagen <span class="text-muted">(Peso máximo 10MB - JPG, PNG)</span></label>
+            <div class="input-group">
+              <div class="custom-file">
+                <input type="file" class="custom-file-input" id="imgProducto" name="imgProducto" onchange="previsualizar()">
+                <label class="custom-file-label" for="imgProducto">Elegir archivo</label>
+              </div>
+              <div class="input-group-append">
+                <span class="input-group-text">Subir</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-6">
+          <div class="form-group" style="text-align:center">
+            <img src="assest/dist/img/product_default.png" alt="" width="150" class="img-thumbnail previsualizar">
+          </div>
+        </div>
       </div>
     </div>
-    <div class="form-group row">
-      <label for="cod_producto_sin" class="col-sm-3 col-form-label">Código SIN:</label>
-      <div class="col-sm-9">
-        <input type="text" class="form-control" id="cod_producto_sin" name="cod_producto_sin" placeholder="Código SIN">
-      </div>
-    </div>
-    <div class="form-group row">
-      <label for="nombre_producto" class="col-sm-3 col-form-label">Nombre Producto:</label>
-      <div class="col-sm-9">
-        <input type="text" class="form-control" id="nombre_producto" name="nombre_producto" placeholder="Nombre del producto">
-      </div>
-    </div>
-    <div class="form-group row">
-      <label for="precio_producto" class="col-sm-3 col-form-label">Precio:</label>
-      <div class="col-sm-9">
-        <input type="number" class="form-control" id="precio_producto" name="precio_producto" placeholder="Precio" step="0.01">
-      </div>
-    </div>
-    <div class="form-group row">
-      <label for="unidad_medida" class="col-sm-3 col-form-label">Unidad de Medida:</label>
-      <div class="col-sm-9">
-        <input type="text" class="form-control" id="unidad_medida" name="unidad_medida" placeholder="Unidad de medida">
-      </div>
-    </div>
-    <div class="form-group row">
-      <label for="unidad_medida_sin" class="col-sm-3 col-form-label">Unidad Medida SIN:</label>
-      <div class="col-sm-9">
-        <input type="text" class="form-control" id="unidad_medida_sin" name="unidad_medida_sin" placeholder="Unidad Medida SIN">
-      </div>
-    </div>
-    <div class="form-group row">
-      <label for="imagen_producto" class="col-sm-3 col-form-label">Imagen Producto:</label>
-      <div class="col-sm-9">
-        <input type="text" class="form-control" id="imagen_producto" name="imagen_producto" placeholder="URL de la imagen del producto">
-      </div>
-    </div>
-    <div class="form-group row">
-      <label for="disponible" class="col-sm-3 col-form-label">Disponible:</label>
-      <div class="col-sm-9">
-        <input type="checkbox" id="disponible" name="disponible"> Disponible
-      </div>
-    </div>
-  </div>
-  <!-- /.card-body -->
-  <div class="card-footer">
+  <div class="modal-footer justify-content-between">
+    <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
     <button type="submit" class="btn btn-primary">Guardar</button>
-    <button type="button" class="btn btn-default float-right" data-dismiss="modal">Cancelar</button>
   </div>
+  
   <!-- /.card-footer -->
 </form>
 
 <script>
-  // Envia los datos del formulario al controlador
-
   $(function() {
     $.validator.setDefaults({
       submitHandler: function() {
-        regProducto();
+        regProducto()
       }
     });
     $('#FRegProducto').validate({
       rules: {
-        cod_producto: {
+        codProducto: {
           required: true,
           minlength: 3,
         },
-        cod_producto_sin: {
+        codProductoSIN: {
           required: true,
-          minlength: 3
+          minlength: 3,
         },
-        nombre_producto: {
+        desProducto: {
           required: true,
-          minlength: 3
+          minlength: 3,
         },
-        precio_producto: {
+        preProducto: {
           required: true,
-          number: true
+          minlength: 1,
         },
-        unidad_medida: {
+        unidadMedidad: {
           required: true,
-          minlength: 1
+          minlength: 1,
         },
-        unidad_medida_sin: {
+        unidadMedidadSIN: {
           required: true,
-          minlength: 1
+          minlength: 1,
         },
-        imagen_producto: {
+        imgProducto: {
           required: true,
-          minlength: 3
+          minlength: 1,
         }
       },
       errorElement: 'span',

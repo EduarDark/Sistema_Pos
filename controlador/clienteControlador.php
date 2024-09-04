@@ -7,6 +7,7 @@ if (isset($ruta["query"])) {
     if (
         $ruta["query"] == "ctrRegCliente" ||
         $ruta["query"] == "ctrEditCliente" ||
+        $ruta["query"] == "ctrBusCliente" ||
         $ruta["query"] == "ctrEliCliente"
     ) {
         $metodo = $ruta["query"];
@@ -28,8 +29,6 @@ class ControladorCliente
     {
         require "../modelo/clienteModelo.php";
 
-        // id_cliente	razon_social_cliente	nit_ci_cliente	direccion_cliente	nombre_cliente	telefono_cliente	email_cliente
-        //creamos el array de datos
         $data = array("razon_social_cliente" => $_POST["razon_social"], "nit_ci_cliente" => $_POST["nit_ci"], "direccion_cliente" => $_POST["direccion"], "nombre_cliente" => $_POST["nombre"], "telefono_cliente" => $_POST["telefono"], "email_cliente" => $_POST["email"]);
         var_dump($data);
         $respuesta = ModeloCliente::mdlRegCliente($data);
@@ -42,10 +41,6 @@ class ControladorCliente
         $respuesta = ModeloCliente::mdlInfoCliente($id);
         return $respuesta;
     }
-
-
-
-
 
 
     static function ctrEditCliente()
@@ -68,4 +63,14 @@ class ControladorCliente
         $respuesta = ModeloCliente::mdlEliCliente($id);
         echo $respuesta;
     }
-}//final
+
+
+    static function ctrBusCliente(){
+        
+        require "../modelo/clienteModelo.php";
+        $nitCliente=$_POST["nitCliente"];
+
+        $respuesta = ModeloCliente::mdlBusCliente($nitCliente);
+        echo json_encode($respuesta);
+    }
+}

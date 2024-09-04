@@ -1,5 +1,4 @@
 <?php
-
 require_once "../../controlador/productoControlador.php";
 require_once "../../modelo/productoModelo.php";
 
@@ -7,124 +6,157 @@ $id = $_GET["id"];
 $producto = ControladorProducto::ctrInfoProducto($id);
 
 ?>
-
-<form class="form-horizontal" action="" id="FEditProducto">
-  <div class="modal-header">
-    <h4 class="modal-title">Actualizar Producto</h4>
+<form action="" id="FEditProducto" enctype="multipart/form-data">
+  <div class="modal-header bg-secondary">
+    <h4 class="modal-title">Editar producto</h4>
     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
       <span aria-hidden="true">&times;</span>
     </button>
   </div>
-  <div class="card-body">
-    <div class="form-group row">
-      <label for="id_producto" class="col-sm-3 col-form-label">ID Producto:</label>
-      <div class="col-sm-9">
-        <input type="text" class="form-control" name="id" id="id" value="<?php echo $producto["id_producto"]; ?>" readonly>
+  <div class="modal-body">
+    <div class="row">
+      <div class="col-sm-6">
+        <div class="form-group">
+          <label for="codProducto">Cod. Producto</label>
+          <input type="text" class="form-control" name="codProducto" id="codProducto" value="<?php echo $producto["cod_producto"]; ?>" readonly>
+          <input type="hidden" name="idProducto" value="<?php echo $producto["id_producto"]; ?>">
+        </div>
+      </div>
+      <div class="col-sm-6">
+        <div class="form-group">
+          <label for="codProductoSIN">Cod. Producto SIN</label>
+          <input type="text" class="form-control" name="codProductoSIN" id="codProductoSIN" value="<?php echo $producto["cod_producto_sin"]; ?>">
+        </div>
       </div>
     </div>
-    <div class="form-group row">
-      <label for="cod_producto" class="col-sm-3 col-form-label">Código Producto:</label>
-      <div class="col-sm-9">
-        <input type="text" class="form-control" id="cod_producto" name="cod_producto" value="<?php echo $producto["cod_producto"]; ?>">
+    <div class="row">
+      <div class="col-sm-6">
+        <div class="form-group">
+          <label for="desProducto">Descripcion</label>
+          <input type="text" class="form-control" name="desProducto" id="desProducto" value="<?php echo $producto["nombre_producto"]; ?>">
+        </div>
+      </div>
+      <div class="col-sm-6">
+        <div class="form-group">
+          <label for="preProducto">Precio</label>
+          <input type="text" class="form-control" name="preProducto" id="preProducto" value="<?php echo $producto["precio_producto"]; ?>">
+        </div>
       </div>
     </div>
-    <div class="form-group row">
-      <label for="cod_producto_sin" class="col-sm-3 col-form-label">Código SIN:</label>
-      <div class="col-sm-9">
-        <input type="text" class="form-control" id="cod_producto_sin" name="cod_producto_sin" value="<?php echo $producto["cod_producto_sin"]; ?>">
+    <div class="row">
+      <div class="col-sm-6">
+        <div class="form-group">
+          <label for="unidadMedidad">Unidad de medida</label>
+          <input type="text" class="form-control" name="unidadMedidad" id="unidadMedidad" value="<?php echo $producto["unidad_medida"]; ?>">
+        </div>
+      </div>
+      <div class="col-sm-6">
+        <div class="form-group">
+          <label for="unidadMedidadSIN">Unidad de medida SIN</label>
+          <input type="text" class="form-control" name="unidadMedidadSIN" id="unidadMedidadSIN" value="<?php echo $producto["unidad_medida_sin"]; ?>">
+        </div>
       </div>
     </div>
-    <div class="form-group row">
-      <label for="nombre_producto" class="col-sm-3 col-form-label">Nombre Producto:</label>
-      <div class="col-sm-9">
-        <input type="text" class="form-control" id="nombre_producto" name="nombre_producto" value="<?php echo $producto["nombre_producto"]; ?>">
-      </div>
-    </div>
-    <div class="form-group row">
-      <label for="precio_producto" class="col-sm-3 col-form-label">Precio:</label>
-      <div class="col-sm-9">
-        <input type="number" class="form-control" id="precio_producto" name="precio_producto" value="<?php echo $producto["precio_producto"]; ?>" step="0.01">
-      </div>
-    </div>
-    <div class="form-group row">
-      <label for="unidad_medida" class="col-sm-3 col-form-label">Unidad Medida:</label>
-      <div class="col-sm-9">
-        <input type="text" class="form-control" id="unidad_medida" name="unidad_medida" value="<?php echo $producto["unidad_medida"]; ?>">
-      </div>
-    </div>
-    <div class="form-group row">
-      <label for="unidad_medida_sin" class="col-sm-3 col-form-label">Unidad Medida SIN:</label>
-      <div class="col-sm-9">
-        <input type="text" class="form-control" id="unidad_medida_sin" name="unidad_medida_sin" value="<?php echo $producto["unidad_medida_sin"]; ?>">
-      </div>
-    </div>
-    <div class="form-group row">
-      <label for="imagen_producto" class="col-sm-3 col-form-label">Imagen Producto:</label>
-      <div class="col-sm-9">
-        <input type="text" class="form-control" id="imagen_producto" name="imagen_producto" value="<?php echo $producto["imagen_producto"]; ?>">
-      </div>
-    </div>
-    <div class="form-group">
-     <label for="">Estado</label>
-      <div class="row">
-        <div class="col-sm-6">
-          <div class="custom-control custom-radio">
-            <input class="custom-control-input" type="radio" id="estadoActivo" name="disponible" <?php if($producto["disponible"]=="1"):?>checked<?php endif;?> value="1">
-            <label for="estadoActivo" class="custom-control-label">Disponible</label>
+    <div class="row">
+      <div class="col-sm-6">
+        <div class="form-group">
+          <label for="imgProducto">Imagen <span class="text-muted">(Peso máximo 10MB - JPG, PNG)</span></label>
+          <div class="input-group">
+            <div class="custom-file">
+              <input type="file" class="custom-file-input" id="imgProducto" name="imgProducto" onchange="previsualizar()">
+              <input type="hidden" name="imgActual" value="<?php echo $producto["imagen_producto"]; ?>">
+              <label class="custom-file-label" for="imgProducto">Elegir archivo</label>
+            </div>
+            <div class="input-group-append">
+              <span class="input-group-text">Subir</span>
+            </div>
           </div>
-        </div>
-        <div class="col-sm-6">
-          <div class="custom-control custom-radio">
-            <input class="custom-control-input" type="radio" id="estadoInactivo" name="disponible" <?php if($producto["disponible"]=="0"):?>checked<?php endif;?> value="0">
-            <label for="estadoInactivo" class="custom-control-label">Inactivo</label>
-          </div>  
+
+          <div class="form-group">
+            <label for="">Estado</label>
+            <div class="row">
+              <div class="col-sm-6">
+                <div class="custom-control custom-radio">
+                  <input type="radio" id="estadoActivo" name="estado" value="1"<?php if($producto["disponible"]=="1"):?>checked<?php endif;?>>
+                  <label for="estadoActivo">Disponible</label>
+                </div>
+              </div>
+
+              <div class="col-sm-6">
+                <div class="custom-control custom-radio">
+                  <input type="radio" id="estadoInactivo" name="estado" value="0"<?php if($producto["disponible"]=="0"):?>checked<?php endif;?>>
+                  <label for="estadoInactivo">No disponible</label>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+
         </div>
       </div>
+      <div class="col-sm-6">
+        <div class="form-group" style="text-align:center">
+          <?php
+          if ($producto["imagen_producto"] == "") {
+          ?>
+            <img src="assest/dist/img/product_default.png" alt="" width="150" class="img-thumbnail previsualizar">
+          <?php
+          } else {
+          ?>
+            <img src="assest/dist/img/productos/<?php echo $producto["imagen_producto"]; ?>" alt="" width="150" class="img-thumbnail previsualizar">
+          <?php
+          }
+          ?>
+        </div>
+      </div>
+    </div>
   </div>
-  <!-- /.card-body -->
-  <div class="card-footer">
+  <div class="modal-footer justify-content-between">
+    <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
     <button type="submit" class="btn btn-primary">Guardar</button>
-    <button type="button" class="btn btn-default float-right" data-dismiss="modal">Cancelar</button>
   </div>
+
   <!-- /.card-footer -->
 </form>
 
+
 <script>
-$(function() {
+  $(function() {
     $.validator.setDefaults({
       submitHandler: function() {
-        editProducto();
+        editProducto()
       }
     });
     $('#FEditProducto').validate({
       rules: {
-        cod_producto: {
+        codProducto: {
           required: true,
           minlength: 3,
         },
-        cod_producto_sin: {
+        codProductoSIN: {
           required: true,
-          minlength: 3
+          minlength: 3,
         },
-        nombre_producto: {
+        desProducto: {
           required: true,
-          minlength: 3
+          minlength: 3,
         },
-        precio_producto: {
+        preProducto: {
           required: true,
-          number: true
+          minlength: 1,
         },
-        unidad_medida: {
+        unidadMedidad: {
           required: true,
-          minlength: 1
+          minlength: 1,
         },
-        unidad_medida_sin: {
+        unidadMedidadSIN: {
           required: true,
-          minlength: 1
+          minlength: 1,
         },
-        imagen_producto: {
+        imgProducto: {
           required: true,
-          minlength: 3
+          minlength: 1,
         }
       },
       errorElement: 'span',

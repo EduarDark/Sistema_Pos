@@ -1,86 +1,95 @@
 <?php
-$ruta = parse_url($_SERVER["REQUEST_URI"]);
 
-if (isset($ruta["query"])) {
-  if (
-    $ruta["query"] == "ctrRegProducto" ||
-    $ruta["query"] == "ctrEditProducto" ||
-    $ruta["query"] == "ctrEliProducto"
-  ) {
-    $metodo = $ruta["query"];
-    $producto = new controladorProducto();
+$ruta=parse_url($_SERVER["REQUEST_URI"]);
+
+if(isset($ruta["query"])){
+
+if($ruta["query"]=="ctrRegProducto"||
+   $ruta["query"]=="ctrEditProducto"||
+   $ruta["query"]=="ctrEliProducto"){
+    $metodo=$ruta["query"];
+    $producto=new ControladorProducto();
     $producto->$metodo();
-  }
 }
 
-class controladorProducto
-{
+}
 
-  static public function ctrInfoProductos()
-  {
-    $respuesta = ModeloProducto::mdlInfoProductos();
-    return $respuesta;
-  }
 
-  static public function ctrRegProducto()
-  {
-      require "../modelo/productoModelo.php";
-  
-      // id_producto, cod_producto, cod_producto_sin, nombre_producto, precio_producto, unidad_medida, unidad_medida_sin, imagen_producto, disponible
-      // Creamos el array de datos
-      $data = array(
-          "cod_producto" => $_POST["cod_producto"],
-          "cod_producto_sin" => $_POST["cod_producto_sin"],
-          "nombre_producto" => $_POST["nombre_producto"],
-          "precio_producto" => $_POST["precio_producto"],
-          "unidad_medida" => $_POST["unidad_medida"],
-          "unidad_medida_sin" => $_POST["unidad_medida_sin"],
-          "imagen_producto" => $_POST["imagen_producto"],
-          "disponible" => $_POST["disponible"]
-      );
-  
-      var_dump($data);
-      $respuesta = ModeloProducto::mdlRegProducto($data);
-  
-      echo $respuesta;
-  }  
 
-  static public function ctrInfoProducto($id)
-  {
-    $respuesta = ModeloProducto::mdlInfoProducto($id);
-    return $respuesta;
-  }
 
-  static function ctrEditProducto()
-  {
-      require "../modelo/productoModelo.php";
-  
-      // id_producto, cod_producto, cod_producto_sin, nombre_producto, precio_producto, unidad_medida, unidad_medida_sin, imagen_producto, disponible
-      // Creamos el array de datos para editar el producto
-      $data = array(
-          "cod_producto" => $_POST["cod_producto"],
-          "cod_producto_sin" => $_POST["cod_producto_sin"],
-          "nombre_producto" => $_POST["nombre_producto"],
-          "precio_producto" => $_POST["precio_producto"],
-          "unidad_medida" => $_POST["unidad_medida"],
-          "unidad_medida_sin" => $_POST["unidad_medida_sin"],
-          "imagen_producto" => $_POST["imagen_producto"],
-          "disponible" => $_POST["disponible"],
-          "id_producto" => $_POST["id"] // ID del producto a editar
-      );
-  
-      // Llamamos al modelo para editar el producto
-      $respuesta = ModeloProducto::mdlEditProducto($data);
-       // Mostramos la respuesta
-      echo $respuesta;
-  }  
+class ControladorProducto{
+     
 
-  static function ctrEliProducto()
-  {
+    static public function ctrInfoProductos(){
+        $respuesta=ModeloProducto::mdlInfoProductos();
+        return $respuesta;
+    }
+
+
+    static public function ctrRegProducto(){
+        require "../modelo/productoModelo.php";
+        $imagen=$_FILES["imgProducto"];
+        $imgNombre=$imagen["name"];
+        $imgTmp=$imagen["tmp_name"];
+        move_uploaded_file($imgTmp,"../assest/dist/img/productos/".$imgNombre);
+
+
+        $data=array(
+            "codProducto"=>$_POST["codProducto"],
+            "codProductoSIN"=>$_POST["codProductoSIN"],
+            "desProducto"=>$_POST["desProducto"],
+            "preProducto"=>$_POST["preProducto"],
+            "unidadMedidad"=>$_POST["unidadMedidad"],
+            "unidadMedidadSIN"=>$_POST["unidadMedidadSIN"],
+            "codProducto"=>$_POST["codProducto"],
+            "imgProducto"=>$imgNombre,
+        );
+        $respuesta=ModeloProducto::mdlRegProducto($data);
+
+        echo $respuesta;
+
+    }
+
+    static public function ctrInfoProducto($id){
+
+        $respuesta=ModeloProducto::mdlInfoProducto($id);
+        return $respuesta;
+    }
+
+
+static function ctrEditProducto(){
     require "../modelo/productoModelo.php";
-    $id = $_POST["id"];
 
-    $respuesta = ModeloProducto::mdlEliProducto($id);
-    echo $respuesta;
-  }
+    $imagen=$_FILES["imgProducto"];
+    if($imagen["name"]==""){
+    $imgNombre=$_POST["imgActual"];
+    }else{
+        $imgNombre=$imagen["name"];
+        $imgTmp=$imagen["tmp_name"];
+        move_uploaded_file($imgTmp,"../assest/dist/img/productos/".$imgNombre);
+    }
+
+    $data=array(
+        "idProducto"=>$_POST["idProducto"],
+        "codProductoSIN"=>$_POST["codProductoSIN"],
+        "desProducto"=>$_POST["desProducto"],
+        "preProducto"=>$_POST["preProducto"],
+        "unidadMedidad"=>$_POST["unidadMedidad"],
+        "unidadMedidadSIN"=>$_POST["unidadMedidadSIN"],
+        "estado"=>$_POST["estado"],
+        "imgProducto"=>$imgNombre,
+    );
+
+
+    $respuesta=ModeloProducto::mdlEditProducto($data);
+    echo $respuesta; 
 }
+
+static function ctrEliProducto(){
+    require "../modelo/productoModelo.php";
+    $id=$_POST["id"];
+    $respuesta= ModeloProducto::mdlEliProducto($id);
+    echo $respuesta;
+}
+
+}//final
