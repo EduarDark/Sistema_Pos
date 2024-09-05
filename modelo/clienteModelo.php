@@ -1,82 +1,96 @@
 <?php
 require_once "conexion.php";
-class ModeloCliente
-{
+class ModeloCliente{
+    static public function mdlAccesoCliente($cliente){
+    $stmt=Conexion::conectar()->prepare("select * from cliente where login_cliente='$cliente'");
+    $stmt->execute();
+    return $stmt->fetch();
 
-    static public function mdlInfoClientes()
-    {
-        $stmt = Conexion::conectar()->prepare("select * from cliente");
-        $stmt->execute();
-        return $stmt->fetchAll();
+    //$stmt->closeCursor();
+    //$stmt-->null;
     }
+    static public function mdlInfoClientes(){
+    $stmt=Conexion::conectar()->prepare("select * from cliente");
+    $stmt->execute();
+    return $stmt->fetchAll();
 
+    //$stmt->closeCursor();
+    //$stmt-->null;
+    }
+    static public function mdlRegCliente($data){
+        $razonCliente=$data["razonCliente"];
+        $nitCliente=$data["nitCliente"];
+        $direccionCliente=$data["direccionCliente"];
+        $nombreCliente=$data["nombreCliente"];
+        $telefonoCliente=$data["telefonoCliente"];
+        $emailCliente=$data["emailCliente"];
+        $stmt=Conexion::conectar()->prepare("insert into cliente(razon_social_cliente,nit_ci_cliente,direccion_cliente,nombre_cliente,telefono_cliente,email_cliente)values('$razonCliente','$nitCliente','$direccionCliente','$nombreCliente','$telefonoCliente','$emailCliente')");
 
-    static public function mdlRegCliente($data)
-    {
-        $razon_social_cliente = $data["razon_social_cliente"];
-        $nit_ci_cliente = $data["nit_ci_cliente"];
-        $direccion_cliente = $data["direccion_cliente"];
-        $nombre_cliente = $data["nombre_cliente"];
-        $telefono_cliente = $data["telefono_cliente"];
-        $email_cliente = $data["email_cliente"];
-
-        var_dump($data);
-
-        $stmt = Conexion::conectar()->prepare("insert into cliente(razon_social_cliente, nit_ci_cliente, direccion_cliente, nombre_cliente, telefono_cliente, email_cliente) values('$razon_social_cliente', '$nit_ci_cliente', '$direccion_cliente', '$nombre_cliente', '$telefono_cliente', '$email_cliente')");
-        if ($stmt->execute()) {
+        if($stmt->execute()){
             return "ok";
-        } else {
+        }else{
             return "error";
         }
+        //$stmt->closeCursor();
+        //$stmt-->null;
     }
-
-    static public function mdlInfoCliente($id)
-    {
-        $stmt = Conexion::conectar()->prepare("select * from cliente where id_cliente=$id");
+    static public function mdlInfoCliente($id){
+        $stmt=Conexion::conectar()->prepare("select * from cliente where id_cliente=$id");
         $stmt->execute();
- 
         return $stmt->fetch();
+    
+        //$stmt->closeCursor();
+        //$stmt-->null;
     }
+    static public function mdlEditCliente($data){
+        // var_dump($data);
+        $razonCliente=$data["razonCliente"];
+        $nitCliente=$data["nitCliente"];
+        $direccionCliente=$data["direccionCliente"];
+        $nombreCliente=$data["nombreCliente"];
+        $telefonoCliente=$data["telefonoCliente"];
+        $emailCliente=$data["emailCliente"];
+        $id=$data["id"];
 
+        $stmt=Conexion::conectar()->prepare("update cliente set razon_social_cliente='$razonCliente', nit_ci_cliente='$nitCliente', direccion_cliente='$direccionCliente', nombre_cliente='$nombreCliente', telefono_cliente='$telefonoCliente', email_cliente='$emailCliente' where id_cliente=$id");
 
+        if($stmt->execute()){
+            return "ok";
+        }else{
+            return "error";
+        }
+        //$stmt->closeCursor();
+        //$stmt-->null;
+    }
+    static public function mdlEliCliente($id){
 
-    static public function mdlBusCliente($nitCliente)
-    {
+        $stmt=Conexion::conectar()->prepare("delete from cliente where id_cliente=$id");
+
+        if($stmt->execute()){
+            return "ok";
+        }else{
+            return "error";
+        }
+        //$stmt->closeCursor();
+        //$stmt-->null;
+    }
+    static public function mdlActualizarAcceso($fechaHora, $id){
+        $stmt=Conexion::conectar()->prepare("update cliente set ultimo_login='$fechaHora' where id_cliente='$id'");
+        
+        if($stmt->execute()){
+          return "ok";
+        }else{
+          return "error";
+        }
+        //$stmt->closeCursor();
+        //$stmt-->null;
+      }
+
+    static public function mdlBusCliente($nitCliente){
         $stmt = Conexion::conectar()->prepare("select * from cliente where nit_ci_cliente=$nitCliente");
         $stmt->execute();
- 
         return $stmt->fetch();
+        // $stmt->closeCursor();
+        // $stmt-->null;
     }
-
-
-    static public function mdlEditCliente($data)
-    {
-
-        $razon_social_cliente = $data["razon_social_cliente"];
-        $nit_ci_cliente = $data["nit_ci_cliente"];
-        $direccion_cliente = $data["direccion_cliente"];
-        $nombre_cliente = $data["nombre_cliente"];
-        $telefono_cliente = $data["telefono_cliente"];
-        $email_cliente = $data["email_cliente"];
-        $id = $data["id_cliente"];
-
-        $stmt = Conexion::conectar()->prepare("update cliente set razon_social_cliente='$razon_social_cliente', nit_ci_cliente='$nit_ci_cliente', direccion_cliente='$direccion_cliente', nombre_cliente='$nombre_cliente', telefono_cliente='$telefono_cliente', email_cliente='$email_cliente' where id_cliente=$id");
-        if ($stmt->execute()) {
-            return "ok";
-        } else {
-            return "error";
-        }
-    }
-
-    static public function mdlEliCliente($id)
-    {
-
-        $stmt = Conexion::conectar()->prepare("delete from cliente where id_cliente=$id");
-
-        if ($stmt->execute()) {
-            return "ok";
-        } else {
-            return "error";
-        }
-    }
-}
+}   

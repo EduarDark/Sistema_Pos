@@ -9,8 +9,8 @@ function MNuevoProducto(){
        data: obj,
        success: function(data) {
            $("#content-lg").html(data);
-   }
-   })
+       }
+    })
    }
 
 function regProducto(){
@@ -27,8 +27,8 @@ function regProducto(){
            contentType:false,
            processData:false,
            success: function(data) {
-           console.log(data);    
-            if(data=="ok"){
+               
+            if(data="ok"){
 
                 Swal.fire({
                     icon: 'success',
@@ -53,8 +53,8 @@ function regProducto(){
                 });
             }
 
-       }
-       })
+           }
+        })
 
     
 
@@ -72,8 +72,8 @@ function MEditProducto(id){
        data: obj,
        success: function(data) {
            $("#content-lg").html(data);
-   }
-   })
+       }
+    })
 
 
 
@@ -94,7 +94,7 @@ function editProducto(){
            processData:false,
            success: function(data) {
 
-            if(data=="ok"){
+            if(data="ok"){
 
                 Swal.fire({
                     icon: 'success',
@@ -119,8 +119,8 @@ function editProducto(){
                 });
             }
 
-       }
-       })
+           }
+        })
 
     
 
@@ -160,7 +160,7 @@ Swal.fire({
                     
                 });
               }
-        }
+            }
         })
     }
 })
@@ -209,6 +209,16 @@ function MVerProducto(id){
        data: obj,
        success: function(data) {
            $("#content-lg").html(data);
-   }
-   })
+       }
+    })
 }
+
+function previsualizar(event) {
+    var reader = new FileReader();
+    reader.onload = function() {
+      var output = document.getElementById('preview');
+      output.src = reader.result;
+      output.style.display = 'block';
+    };
+    reader.readAsDataURL(event.target.files[0]);
+  }
