@@ -5,8 +5,10 @@ if (isset($ruta["query"])) {
   if (
     $ruta["query"] == "ctrRegFactura" ||
     $ruta["query"] == "ctrEditFactura" ||
-    $ruta["query"] == "ctrEliFactura"
-  ) {
+    $ruta["query"] == "ctrNumFactura" ||
+    $ruta["query"] == "ctrUltimoCufd" ||
+    $ruta["query"] == "ctrNuevoCufd" ||
+    $ruta["query"] == "ctrEliFactura"){
     $metodo = $ruta["query"];
     $Factura = new ControladorFactura();
     $Factura->$metodo();
@@ -16,14 +18,14 @@ if (isset($ruta["query"])) {
 class ControladorFactura
 {
 
-  static public function ctrInfoFacturas()
-  {
+  static public function ctrInfoFacturas(){
+
     $respuesta = ModeloFactura::mdlInfoFacturas();
     return $respuesta;
   }
 
-  static public function ctrRegFactura()
-  {
+  static public function ctrRegFactura(){
+
     require "../modelo/FacturaModelo.php";
 
     $password = password_hash($_POST["password"], PASSWORD_DEFAULT);
@@ -39,14 +41,14 @@ class ControladorFactura
     echo $respuesta;
   }
 
-  static public function ctrInfoFactura($id)
-  {
+  static public function ctrInfoFactura($id){
+
     $respuesta = ModeloFactura::mdlInfoFactura($id);
     return $respuesta;
   }
 
-  static function ctrEliFactura()
-  {
+  static public function ctrEliFactura(){
+
     require "../modelo/FacturaModelo.php";
     $id = $_POST["id"];
 
@@ -54,8 +56,8 @@ class ControladorFactura
     echo $respuesta;
   }
 
-  static function ctrNumFactura()
-  {
+  static public function ctrNumFactura(){
+
     require "../modelo/facturaModelo.php";
     $respuesta = ModeloFactura::mdlNumFactura();
 
@@ -64,5 +66,24 @@ class ControladorFactura
     } else {
       echo $respuesta["max(id_factura)"] + 1;
     }
+  }
+
+  static public function ctrNuevoCufd(){
+    require "../modelo/facturaModelo.php";
+    
+    $data=array(
+      "cufd"=>$_POST["cufd"],
+      "fechaVigCufd"=>$_POST["fechaVigCufd"],
+      "codControlCufd"=>$_POST["codControlCufd"]
+      );
+
+     echo ModeloFactura::mdlNuevoCufd($data);
+  }
+
+  static public function ctrUltimoCufd(){
+    require "../modelo/facturaModelo.php";
+
+    $respuesta=ModeloFactura::mdlUltimoCufd();
+    echo json_encode($respuesta);
   }
 }

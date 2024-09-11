@@ -127,7 +127,11 @@
                     </div>
                 </div>
             </div>
-
+            
+            <!-- panel de avisos-->
+             <div class="callout callout-info direct-chat-messanges" style="height:100px; width;290px">
+                <span class="list-unstyled" id="panelInfo"></span>
+             </div>
             <div class="card-footer">
                 <button class="btn btn-success" onclick="emitirFactura()">Guardar</button>
             </div>
