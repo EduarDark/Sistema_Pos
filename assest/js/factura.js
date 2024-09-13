@@ -20,7 +20,7 @@ function verificarComunicacion() {
 
   $.ajax({
     type: "POST",
-    url: `${host}api/CompraVenta/comunicacion`,
+    url:host+"api/CompraVenta/comunicacion",
     data: obj,
     cache: false,
     contentType: "application/json",
@@ -113,79 +113,72 @@ function calcularPreProd() {
 // Carrito
 var arregloCarrito = [];
 var listaDetalle = document.getElementById("listaDetalle");
-function agregarCarrito() {
-  let actEconomica = document.getElementById("actEconomica").value;
-  let codProducto = document.getElementById("codProducto").value;
-  let codProductoSin = parseInt(
-    document.getElementById("codProductoSin").value
-  );
-  let conceptoPro = document.getElementById("conceptoPro").value;
-  let cantProducto = parseInt(document.getElementById("cantProducto").value);
-  let uniMedida = document.getElementById("uniMedida").value;
-  let uniMedidaSin = parseInt(document.getElementById("uniMedidaSin").value);
-  let preUnitario = parseFloat(document.getElementById("preUnitario").value);
-  let descProducto = parseFloat(document.getElementById("descProducto").value);
-  let preTotal = parseFloat(document.getElementById("preTotal").value);
 
-  let objDetalle = {
-    actividadEconomica: actEconomica,
-    codigoProductoSin: codProductoSin,
-    codigoProducto: codProducto,
-    descripcion: conceptoPro,
-    cantidad: cantProducto,
-    unidadMedida: uniMedidaSin,
-    precioUnitario: preUnitario,
-    montoDescuento: descProducto,
-    subTotal: preTotal,
-  };
+function agregarCarrito(){
 
-  arregloCarrito.push(objDetalle);
-  dibujarTablaCarrito();
+  let actEconomica=document.getElementById("actEconomica").value
+  let codProducto=document.getElementById("codProducto").value
+  let codProductoSin=parseInt(document.getElementById("codProductoSin").value)
+  let conceptoPro=document.getElementById("conceptoPro").value
+  let cantProducto=parseInt(document.getElementById("cantProducto").value)
+  let uniMedida=document.getElementById("uniMedida").value
+  let uniMedidaSin=parseInt(document.getElementById("uniMedidaSin").value)
+  let preUnitario=parseFloat(document.getElementById("preUnitario").value)
+  let descProducto=parseFloat(document.getElementById("descProducto").value)
+  let preTotal=parseFloat(document.getElementById("preTotal").value)
+
+  let objDetalle={
+    actividadEconomica:actEconomica,
+    codigoProductoSin:codProductoSin,
+    codigoProducto:codProducto,
+    descripcion:conceptoPro,
+    cantidad:cantProducto,
+    unidadMedida:uniMedidaSin,
+    precioUnitario:preUnitario,
+    montoDescuento:descProducto,
+    subtotal:preTotal
+  }
+
+  arregloCarrito.push(objDetalle)
+  dibujarTablaCarrito()
 
   // borrar el formulario de carrito
-  document.getElementById("codProducto").value = "";
-  document.getElementById("conceptoPro").value = "";
-  document.getElementById("cantProducto").value = 0;
-  document.getElementById("uniMedida").value = "";
-  document.getElementById("preUnitario").value = "";
-  document.getElementById("descProducto").value = "0.00";
-  document.getElementById("preTotal").value = "0.00";
+  document.getElementById("codProducto").value=""
+  document.getElementById("conceptoPro").value=""
+  document.getElementById("cantProducto").value=0
+  document.getElementById("uniMedida").value=""
+  document.getElementById("preUnitario").value=""
+  document.getElementById("descProducto").value="0.00"
+  document.getElementById("preTotal").value="0.00"
+
 }
 
-function dibujarTablaCarrito() {
-  listaDetalle.innerHTML = "";
-  arregloCarrito.forEach((detalle) => {
-    let fila = document.createElement("tr");
-    fila.innerHTML =
-      "<td>" +
-      detalle.descripcion +
-      "</td>" +
-      "<td>" +
-      detalle.cantidad +
-      "</td>" +
-      "<td>" +
-      detalle.precioUnitario +
-      "</td>" +
-      "<td>" +
-      detalle.montoDescuento +
-      "</td>" +
-      "<td>" +
-      detalle.subTotal +
-      "</td>";
+function dibujarTablaCarrito(){
+  listaDetalle.innerHTML=""
+  arregloCarrito.forEach((detalle)=>{
+    let fila=document.createElement("tr")
+    fila.innerHTML='<td>'+detalle.descripcion+'</td>'+
+    '<td>'+detalle.cantidad+'</td>'+
+    '<td>'+detalle.precioUnitario+'</td>'+
+    '<td>'+detalle.montoDescuento+'</td>'+
+    '<td>'+detalle.subtotal+'</td>'
 
-    let tdEliminar = document.createElement("td");
-    let botonEliminar = document.createElement("button");
-    botonEliminar.classList.add("btn", "btn-danger");
-    botonEliminar.innerText = "Eliminar";
-    botonEliminar.onclick = () => {
-      eliminarCarrito(detalle.codigoProducto);
-    };
+    let tdEliminar=document.createElement("td")
+    let botonEliminar=document.createElement("button")
+    botonEliminar.classList.add("btn", "btn-danger")
+    botonEliminar.innerText=("Eliminar")
+    botonEliminar.onclick=()=>{
+      eliminarCarrito(detalle.codigoProducto)
+    }
 
-    tdEliminar.appendChild(botonEliminar);
-    fila.appendChild(tdEliminar);
+    tdEliminar.appendChild(botonEliminar)
+    fila.appendChild(tdEliminar)
 
-    listaDetalle.appendChild(fila);
-  });
+    listaDetalle.appendChild(fila)
+  })
+
+  calcularTotal()
+
 }
 
 function eliminarCarrito(cod) {
@@ -300,13 +293,37 @@ function verificarVigenciaCufd(){
       }else{
         $("#panelInfo").before("<span class='text-success'>Cufd vigente, puede facturar </span><br>")
 
-        // cufd=data["codigo_cufd"]
-        // codControlCufd=data["codigo_control"]
-        // fechaVigCufd=data["fecha_vigencia"]
+        cufd=data["codigo_cufd"]
+        codControlCufd=data["codigo_control"]
+        fechaVigCufd=data["fecha_vigencia"]
       }
     }
   })
 
+}
+/*===============
+validar formulario
+=================*/
+function validarFormulario(){
+  let numFactura=document.getElementById("numFactura").value
+  let nitCliente=document.getElementById("nitCliente").value
+  let emailCliente=document.getElementById("emailCliente").value
+  let rsCliente=document.getElementById("rsCliente").value
+
+  if(numFactura==null || numFactura.length==0){
+    $("#panelInfo").before("<span class='text-danger'>Asegurese de llenar los campos faltantes</span><br>") 
+    return false
+  }else if(emailCliente==null || nitCliente.lenght==0){
+    $("#panelInfo").before("<span class='text-danger'>Asegurese de llenar los campos faltantes</span><br>") 
+    return false
+  }else if(emailCliente==null || emailCliente.lenght==0){
+    $("#panelInfo").before("<span class='text-danger'>Asegurese de llenar los campos faltantes</span><br>") 
+    return false
+  }else if(rsCliente==null || rsCliente.lenght==0){
+    $("#panelInfo").before("<span class='text-danger'>Asegurese de llenar los campos faltantes</span><br>") 
+    return false
+  }
+  return true
 }
 /*===============
 Obtener leyenda
@@ -326,73 +343,98 @@ function extraerLeyenda(){
     }
   })
 }
-// emitir factura
+
 function emitirFactura() {
+  if(validarFormulario()==true){
+
   let date = new Date();
-  let numFactura = parseInt(document.getElementById("numFactura").value);
-  let fechaFactura = date.toISOString();
-  let rsCliente = document.getElementById("rsCliente").value;
-  let tpDocumento = parseInt(document.getElementById("tpDocumento").value);
-  let nitCliente = document.getElementById("nitCliente").value;
-  let metPago = parseInt(document.getElementById("metPago").value);
-  let totApagar = parseFloat(document.getElementById("totApagar").value);
+
+  let numFactura = parseInt(document.getElementById("numFactura").value)
+  let fechaFactura = date.toISOString()
+  let rsCliente = document.getElementById("rsCliente").value
+  let tpDocumento = parseInt(document.getElementById("tpDocumento").value)
+  let nitCliente = document.getElementById("nitCliente").value
+  let metPago = parseInt(document.getElementById("metPago").value)
+  let totApagar = parseFloat(document.getElementById("totApagar").value)
   let descAdicional = parseFloat(
     document.getElementById("descAdicional").value
   );
-  let subTotal = parseFloat(document.getElementById("subTotal").value);
-  let usuarioLogin = document.getElementById("usuarioLogin").innerHTML;
+  let subTotal = parseFloat(document.getElementById("subTotal").value)
+  let usuarioLogin = document.getElementById("usuarioLogin").innerHTML
 
-  let actEconomica = document.getElementById("actEconomica").value;
-  let emailCliente = document.getElementById("emailCliente").value;
+  let actEconomica = document.getElementById("actEconomica").value
+  let emailCliente = document.getElementById("emailCliente").value
 
   var obj = {
-    codigodAmbiente: 2,
-    codigoDocumentoSector: 1,
-    codigoEmision: 1,
-    codigoModalidad: 2,
-    codigoPuntoVenta: 0,
-    codigoPuntoVentaSpecified: true,
+    codigoAmbiente:2,
+    codigoDocumentoSector:1,
+    codigoEmision:1,
+    codigoModalidad:2,
+    codigoPuntoVenta:0,
+    codigoPuntoVentaSpecified:true,
     codigoSistema: codSistema,
-    codigoSucursal: 0,
-    cufd: cufd,
-    cuis: cuis,
-    nit: nitEmpresa,
-    tipoFacturaDocumento: 1,
-    archivo: null,
-    fechaEnvio: fechaFactura,
-    hashArchivo: "",
-    codigoControl: codControlCufd,
-    factura: {
-      cabecera: {
-        nitEmisor: nitEmpresa,
-        razonSocialEmisor: rsEmpresa,
-        municipio: "Santa Cruz",
-        telefono: telEmpresa,
-        numeroFactura: numFactura,
-        cuf: "String",
-        cufd: cufd,
-        codigoSucursal: 0,
-        direccion: dirEmpresa,
-        codigoPuntoVenta: 0,
-        fechaEmision: fechaFactura,
-        nombreRazonSocial: rsCliente,
-        codigoTipoDocumentoIdentidad: tpDocumento,
-        numeroDocumento: nitCliente,
-        complemento: "",
-        codigoCliente: nitCliente,
-        codigoMetodoPago: metPago,
-        numeroTarjeta: null,
-        montoTotal: subTotal,
-        montoTotalSujetoIva: totApagar,
-        montoGiftCard: 0,
-        descuentoAdicional: descAdicional,
-        codigoExepcion: "0",
-        cafc: null,
+    codigoSucursal:0,
+    //cufd:cufd,
+    cufd:"BQWVDXiloQUE=Nz0I3OEVGOThGNTc=Qz58VW5RTkpZVUFc1RkE0MkJFOTBGN",
+    cuis:cuis,
+    nit:nitEmpresa,
+    tipoFacturaDocumento:1,
+    archivo:null,
+    fechaEnvio:fechaFactura,
+    hashArchivo:"",
+    //codigoControl:codControlCufd,
+    codigoControl:"3C0CD57B9009E74",
+    factura:{
+      cabecera:{
+        nitEmisor:nitEmpresa,
+        razonSocialEmisor:rsEmpresa,
+        municipio:"Santa Cruz",
+        telefono:telEmpresa,
+        numeroFactura:numFactura,
+        cuf:"String",
+        //cufd:cufd,
+        cufd:"BQWVDXiloQUE=Nz0I3OEVGOThGNTc=Qz58VW5RTkpZVUFc1RkE0MkJFOTBGN",
+        codigoSucursal:0,
+        direccion:dirEmpresa,
+        codigoPuntoVenta:0,
+        fechaEmision:fechaFactura,
+        nombreRazonSocial:rsCliente,
+        codigoTipoDocumentoIdentidad:tpDocumento,
+        numeroDocumento:nitCliente,
+        complemento:"",
+        codigoCliente:nitCliente,
+        codigoMetodoPago:metPago,
+        numeroTarjeta:null,
+        //montoTotal:subTotal,
+        montoTotal:77.5,
+        //montoTotalSujetoIva:totApagar,
+        montoTotalSujetoIva:77.5,
+        codigoMoneda:1,
+        tipoCambio:1,
+        //montoTotalMoneda:totApagar,
+        montoTotalMoneda:77.5,
+        montoGiftCard:0,
+        descuentoAdicional:descAdicional,
+        codigoExcepcion:0,
+        cafc:null,
         leyenda:leyenda,
-        uduario: usuarioLogin,
-        codigoDocumentoSector: 1,
+        usuario:usuarioLogin,
+        codigoDocumentoSector:1
       },
-      detalle: arregloCarrito,
-    },
-  };
+      detalle:arregloCarrito
+    }
+  }
+  console.log(JSON.stringify(obj))
+    $.ajax({
+      type:"POST",
+      url:host+"api/CompraVenta/recepcion",
+      data:JSON.stringify(obj),
+      cache:false,
+      contentType:"application/json",
+      processData:false,
+      success:function(data){
+        console.log(data)
+  }
+})
+}
 }

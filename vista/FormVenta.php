@@ -220,15 +220,18 @@
                     </div>
 
                     <div class="form-group col-md-1">
+                        <label for="">&nbsp;</label>
                         <div class="input-group form-group">
-                            <button class="btn btn-success" type="button" onclick="agregarProducto()">Agregar</button>
+                            <button class="btn btn-info btn-circle form-control" onclick="agregarCarrito()">
+                                <i class="fas fa-plus"></i>
+                            </button>
                         </div>
                     </div>
 
                 </div>
             </div>
 
-            <div class="card-body p-0">
+            <!-- <div class="card-body p-0">
                 <table class="table table-striped" id="tbProductos">
                     <thead>
                         <tr>
@@ -244,7 +247,22 @@
                     </thead>
                     <tbody></tbody>
                 </table>
-            </div>
+            </div> -->
+            <div class="card-footer">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Descripcion</th>
+                            <th>Cantidad</th>
+                            <th>P. Unitario</th>
+                            <th>Descuento</th>
+                            <th>P. Total</th>
+                            <td>&nbsp;</td>
+                        </tr>
+                    </thead>
+                    <tbody id="listaDetalle"></tbody>
+                </table>
+            </div>
         </div>
 
     </div>
