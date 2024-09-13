@@ -83,7 +83,17 @@ class ModeloFactura{
   }
 
   static public function mdlUltimoCufd(){
-    $stmt=Conexion::conectar()->prepare("select max(id_cufd) from cufd ");
+    $stmt=Conexion::conectar()->prepare("SELECT * FROM cufd WHERE id_cufd=(select max(id_cufd) from cufd) ");
+    $stmt->execute();
+
+    return $stmt->fetch();
+
+    $stmt->close();
+    $stmt->null;
+  }
+
+  static public function mdlLeyenda(){
+    $stmt=Conexion::conectar()->prepare("SELECT * FROM leyenda order by rand() limit 1");
     $stmt->execute();
 
     return $stmt->fetch();

@@ -13,13 +13,14 @@ var token =
 var cufd;
 var codControlCufd;
 var fechaVigCufd;
+var leyenda;
 
 function verificarComunicacion() {
   var obj = "";
 
   $.ajax({
     type: "POST",
-    url: host + "api/CompraVenta/comunicacion",
+    url: `${host}api/CompraVenta/comunicacion`,
     data: obj,
     cache: false,
     contentType: "application/json",
@@ -135,7 +136,7 @@ function agregarCarrito() {
     unidadMedida: uniMedidaSin,
     precioUnitario: preUnitario,
     montoDescuento: descProducto,
-    subtotal: preTotal,
+    subTotal: preTotal,
   };
 
   arregloCarrito.push(objDetalle);
@@ -169,7 +170,7 @@ function dibujarTablaCarrito() {
       detalle.montoDescuento +
       "</td>" +
       "<td>" +
-      detalle.subtotal +
+      detalle.subTotal +
       "</td>";
 
     let tdEliminar = document.createElement("td");
@@ -199,7 +200,7 @@ function eliminarCarrito(cod) {
 function calcularTotal() {
   let totalCarrito = 0;
   for (var i = 0; i < arregloCarrito.length; i++) {
-    totalCarrito = totalCarrito + parseFloat(arregloCarrito[i].subtotal);
+    totalCarrito = totalCarrito + parseFloat(arregloCarrito[i].subTotal);
   }
   document.getElementById("subTotal").value = totalCarrito;
   let descAdicional = parseFloat(
@@ -211,6 +212,9 @@ function calcularTotal() {
 obtencion de cufd
 ===============*/
 function solicitudCufd() {
+  return new Promise((resolve, reject)=>{
+
+  
   var obj = {
     codigoAmbiente: 2,
     codigoModalidad: 2,
@@ -232,29 +236,43 @@ function solicitudCufd() {
       cufd = data["codigo"];
       codControlCufd = data["codigoControl"];
       fechaVigCufd = data["fechaVigencia"];
-    },
-  });
+
+      resolve(cufd)
+    }
+  })
+})
 }
 /*========
 registrar nuevo cufd
 ==========*/
 function registrarNuevoCufd() {
-  var obj = {
-    cufd: cufd,
-    fechaVigCufd: fechaVigCufd,
-    codControlCufd: codControlCufd,
-  };
 
-  $.ajax({
-    type: "POST",
-    data: obj,
-    url: "controlador/facturaControlador.php?ctrNuevoCufd",
-    cache: false,
-    success: function (data) {
-      console.log(data);
-    },
-  });
-}
+  solicitudCufd().then(ok=>{
+    if(ok!="" || ok!=null){
+      var obj = {
+        "cufd": cufd,
+        "fechaVigCufd": fechaVigCufd,
+        "codControlCufd": codControlCufd,
+      };
+    
+      $.ajax({
+        type: "POST",
+        data: obj,
+        url: "controlador/facturaControlador.php?ctrNuevoCufd",
+        cache: false,
+        success: function (data) {
+          if(data=="ok"){
+          $("#panelInfo").before("<span class='text-primary'>Cufd registrado!!!</span><br>") 
+        }else{
+          $("#panelInfo").before("<span class='text-danger'>Error de registro cufd</span><br>") 
+        }
+
+    }});
+  }
+    
+}) 
+}  
+
 /*===============
 verificar vidgencia cifd
 =================*/
@@ -274,10 +292,11 @@ function verificarVigenciaCufd(){
       //fecha del ultimo cufd de mi DB
       let vigCufdActual=new Date (data["fecha_vigencia"])
 
-      if(date.getTime()>vigCufdActual.getTime()){
+      if(date.getTime()>vigCufdActual.getTime()  || data[0]
+    ==null){
         $("#panelInfo").before("<span class='text-warning'>Cufd caducado!!!</span><br>")
         $("#panelInfo").before("<span>Registrando cufd... </span><br>")
-        //registrarNuevoCufd()
+        registrarNuevoCufd()
       }else{
         $("#panelInfo").before("<span class='text-success'>Cufd vigente, puede facturar </span><br>")
 
@@ -289,7 +308,24 @@ function verificarVigenciaCufd(){
   })
 
 }
+/*===============
+Obtener leyenda
+=================*/
+function extraerLeyenda(){
 
+  var obj=""
+
+  $.ajax({
+    type:"POST",
+    url:"controlador/facturaControlador.php?ctrLeyenda",
+    data:obj,
+    cache:false,
+    dataType:"json",
+    success:function(data){
+      leyenda=data["desc_leyenda"]
+    }
+  })
+}
 // emitir factura
 function emitirFactura() {
   let date = new Date();
@@ -318,14 +354,14 @@ function emitirFactura() {
     codigoPuntoVentaSpecified: true,
     codigoSistema: codSistema,
     codigoSucursal: 0,
-    cufd: "",
+    cufd: cufd,
     cuis: cuis,
     nit: nitEmpresa,
     tipoFacturaDocumento: 1,
     archivo: null,
     fechaEnvio: fechaFactura,
     hashArchivo: "",
-    codigoControl: "",
+    codigoControl: codControlCufd,
     factura: {
       cabecera: {
         nitEmisor: nitEmpresa,
@@ -334,7 +370,7 @@ function emitirFactura() {
         telefono: telEmpresa,
         numeroFactura: numFactura,
         cuf: "String",
-        cufd: "",
+        cufd: cufd,
         codigoSucursal: 0,
         direccion: dirEmpresa,
         codigoPuntoVenta: 0,
@@ -344,7 +380,7 @@ function emitirFactura() {
         numeroDocumento: nitCliente,
         complemento: "",
         codigoCliente: nitCliente,
-        codigoMetodoPago,
+        codigoMetodoPago: metPago,
         numeroTarjeta: null,
         montoTotal: subTotal,
         montoTotalSujetoIva: totApagar,
@@ -352,7 +388,7 @@ function emitirFactura() {
         descuentoAdicional: descAdicional,
         codigoExepcion: "0",
         cafc: null,
-        leyenda: "",
+        leyenda:leyenda,
         uduario: usuarioLogin,
         codigoDocumentoSector: 1,
       },
