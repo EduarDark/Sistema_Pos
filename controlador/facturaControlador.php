@@ -9,6 +9,7 @@ if (isset($ruta["query"])) {
     $ruta["query"] == "ctrUltimoCufd" ||
     $ruta["query"] == "ctrNuevoCufd" ||
     $ruta["query"] == "ctrLeyenda" ||
+    $ruta["query"] == "ctrRegistrarFactura" ||
     $ruta["query"] == "ctrEliFactura"){
     $metodo = $ruta["query"];
     $Factura = new ControladorFactura();
@@ -21,11 +22,23 @@ class ControladorFactura
 
   static public function ctrInfoFacturas(){
 
+     // Añadir encabezados CORS
+     header("Access-Control-Allow-Origin: *");
+     header("Access-Control-Allow-Methods: GET, POST, OPTIONS, PUT, DELETE");
+     header("Access-Control-Allow-Headers: Content-Type, Authorization");
+ 
+
     $respuesta = ModeloFactura::mdlInfoFacturas();
     return $respuesta;
   }
 
   static public function ctrRegFactura(){
+
+     // Añadir encabezados CORS
+     header("Access-Control-Allow-Origin: *");
+     header("Access-Control-Allow-Methods: GET, POST, OPTIONS, PUT, DELETE");
+     header("Access-Control-Allow-Headers: Content-Type, Authorization");
+ 
 
     require "../modelo/FacturaModelo.php";
 
@@ -44,11 +57,23 @@ class ControladorFactura
 
   static public function ctrInfoFactura($id){
 
+     // Añadir encabezados CORS
+     header("Access-Control-Allow-Origin: *");
+     header("Access-Control-Allow-Methods: GET, POST, OPTIONS, PUT, DELETE");
+     header("Access-Control-Allow-Headers: Content-Type, Authorization");
+ 
+
     $respuesta = ModeloFactura::mdlInfoFactura($id);
     return $respuesta;
   }
 
   static public function ctrEliFactura(){
+
+     // Añadir encabezados CORS
+     header("Access-Control-Allow-Origin: *");
+     header("Access-Control-Allow-Methods: GET, POST, OPTIONS, PUT, DELETE");
+     header("Access-Control-Allow-Headers: Content-Type, Authorization");
+ 
 
     require "../modelo/FacturaModelo.php";
     $id = $_POST["id"];
@@ -58,6 +83,12 @@ class ControladorFactura
   }
 
   static public function ctrNumFactura(){
+
+     // Añadir encabezados CORS
+     header("Access-Control-Allow-Origin: *");
+     header("Access-Control-Allow-Methods: GET, POST, OPTIONS, PUT, DELETE");
+     header("Access-Control-Allow-Headers: Content-Type, Authorization");
+ 
 
     require "../modelo/facturaModelo.php";
     $respuesta = ModeloFactura::mdlNumFactura();
@@ -70,6 +101,12 @@ class ControladorFactura
   }
 
   static public function ctrNuevoCufd(){
+
+     // Añadir encabezados CORS
+     header("Access-Control-Allow-Origin: *");
+     header("Access-Control-Allow-Methods: GET, POST, OPTIONS, PUT, DELETE");
+     header("Access-Control-Allow-Headers: Content-Type, Authorization");
+ 
     require "../modelo/facturaModelo.php";
     
     $data=array(
@@ -82,6 +119,12 @@ class ControladorFactura
   }
 
   static public function ctrUltimoCufd(){
+
+     // Añadir encabezados CORS
+     header("Access-Control-Allow-Origin: *");
+     header("Access-Control-Allow-Methods: GET, POST, OPTIONS, PUT, DELETE");
+     header("Access-Control-Allow-Headers: Content-Type, Authorization");
+ 
     require "../modelo/facturaModelo.php";
 
     $respuesta=ModeloFactura::mdlUltimoCufd();
@@ -89,9 +132,38 @@ class ControladorFactura
   }
 
   static public function ctrLeyenda(){
+
+     // Añadir encabezados CORS
+     header("Access-Control-Allow-Origin: *");
+     header("Access-Control-Allow-Methods: GET, POST, OPTIONS, PUT, DELETE");
+     header("Access-Control-Allow-Headers: Content-Type, Authorization");
+ 
     require "../modelo/facturaModelo.php";
 
     $respuesta=ModeloFactura::mdlLeyenda();
     echo json_encode($respuesta);
+  }
+
+  static public function ctrRegistrarFactura(){
+
+    require "../modelo/facturaModelo.php";
+
+     $data=array(
+      "codFactura"=>$_POST["codFactura"],
+      "idCliente"=>$_POST["idCliente"],
+      "detalle"=>$_POST["detalle"],
+      "neto"=>$_POST["neto"],
+      "descuento"=>$_POST["descuento"],
+      "total"=>$_POST["total"],
+      "fechaEmision"=>$_POST["fechaEmision"],
+      "cufd"=>$_POST["cufd"],
+      "cuf"=>$_POST["cuf"],
+      "xml"=>$_POST["xml"],
+      "idUsuario"=>$_POST["idUsuario"],
+      "usuario"=>$_POST["usuario"],
+      "leyenda"=>$_POST["leyenda"],
+    );
+    $respuesta=ModeloFactura::mdlRegistrarFactura($data);
+    echo $respuesta;
   }
 }

@@ -9,8 +9,8 @@ function MNuevoProducto(){
        data: obj,
        success: function(data) {
            $("#content-lg").html(data);
-       }
-    })
+   }
+   })
    }
 
 function regProducto(){
@@ -28,7 +28,7 @@ function regProducto(){
            processData:false,
            success: function(data) {
                
-            if(data="ok"){
+            if(data=="ok"){
 
                 Swal.fire({
                     icon: 'success',
@@ -53,8 +53,8 @@ function regProducto(){
                 });
             }
 
-           }
-        })
+       }
+       })
 
     
 
@@ -72,8 +72,8 @@ function MEditProducto(id){
        data: obj,
        success: function(data) {
            $("#content-lg").html(data);
-       }
-    })
+   }
+   })
 
 
 
@@ -119,8 +119,8 @@ function editProducto(){
                 });
             }
 
-           }
-        })
+       }
+       })
 
     
 
@@ -160,7 +160,7 @@ Swal.fire({
                     
                 });
               }
-            }
+        }
         })
     }
 })
@@ -209,8 +209,8 @@ function MVerProducto(id){
        data: obj,
        success: function(data) {
            $("#content-lg").html(data);
-       }
-    })
+   }
+   })
 }
 
 function previsualizar(event) {
@@ -221,4 +221,4 @@ function previsualizar(event) {
       output.style.display = 'block';
     };
     reader.readAsDataURL(event.target.files[0]);
-  }
+}
