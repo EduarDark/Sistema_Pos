@@ -137,6 +137,14 @@
                   <p>Emitir Factura</p>
                 </a>
               </li>
+
+              <li class="nav-item">
+                <a href="VFactura" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Lista de Facturas</p>
+                </a>
+              </li>
+
             </ul>
           </li>
 

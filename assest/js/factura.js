@@ -5,11 +5,9 @@ var cuis = "9272DC05";
 var nitEmpresa = 338794023;
 var rsEmpresa = "NEOMAC SRL";
 var telEmpresa = "9422560";
-var dirEmpresa =
-  "Calle Pucara 129 AVENIDA 7MO ANILLO NRO. 7550 ZONA/BARRIO: TIERRAS NUEVAS UV: 0135 MZA: 007";
+var dirEmpresa ="Calle Pucara 129 AVENIDA 7MO ANILLO NRO. 7550 ZONA/BARRIO: TIERRAS NUEVAS UV: 0135 MZA: 007";
 
-var token =
-  "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJTdXBlcmppY2hvMzMiLCJjb2RpZ29TaXN0ZW1hIjoiNzc1RkE0MkJFOTBGN0I3OEVGOThGNTciLCJuaXQiOiJINHNJQUFBQUFBQUFBRE0ydGpDM05ERXdNZ1lBOFFXMzNRa0FBQUE9IiwiaWQiOjYxODYwOCwiZXhwIjoxNzMzOTYxNjAwLCJpYXQiOjE3MDI0OTc2NjAsIm5pdERlbGVnYWRvIjozMzg3OTQwMjMsInN1YnNpc3RlbWEiOiJTRkUifQ.4K_pQUXnIhgI5ymmXoyL43i0pSk3uKCgLMkmQeyl67h7j55GSRsH120AD44pR0aQ1UX_FNYzWQBYrX6pWLd-1w";
+var token ="eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJTdXBlcmppY2hvMzMiLCJjb2RpZ29TaXN0ZW1hIjoiNzc1RkE0MkJFOTBGN0I3OEVGOThGNTciLCJuaXQiOiJINHNJQUFBQUFBQUFBRE0ydGpDM05ERXdNZ1lBOFFXMzNRa0FBQUE9IiwiaWQiOjYxODYwOCwiZXhwIjoxNzMzOTYxNjAwLCJpYXQiOjE3MDI0OTc2NjAsIm5pdERlbGVnYWRvIjozMzg3OTQwMjMsInN1YnNpc3RlbWEiOiJTRkUifQ.4K_pQUXnIhgI5ymmXoyL43i0pSk3uKCgLMkmQeyl67h7j55GSRsH120AD44pR0aQ1UX_FNYzWQBYrX6pWLd-1w";
 var cufd;
 var codControlCufd;
 var fechaVigCufd;
@@ -482,6 +480,8 @@ function emitirFactura() {
   }
 })
 }
+}
+
 function registrarFactura(datos){
   let numFactura=document.getElementById("numFactura").value
   let idCliente=document.getElementById("idCliente").value
@@ -520,4 +520,18 @@ function registrarFactura(datos){
     }
   })    
 }
+
+function MVerFactura(id){
+  $("#modal-xl").modal("show");
+   
+  var obj="";
+  $.ajax({
+ 
+     type:"POST",
+     url:"vista/factura/MVerFactura.php?id="+id,
+     data: obj,
+     success: function(data) {
+         $("#content-xl").html(data);
+     }
+  })
 }

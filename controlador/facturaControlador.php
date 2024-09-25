@@ -3,8 +3,6 @@ $ruta = parse_url($_SERVER["REQUEST_URI"]);
 
 if (isset($ruta["query"])) {
   if (
-    $ruta["query"] == "ctrRegFactura" ||
-    $ruta["query"] == "ctrEditFactura" ||
     $ruta["query"] == "ctrNumFactura" ||
     $ruta["query"] == "ctrUltimoCufd" ||
     $ruta["query"] == "ctrNuevoCufd" ||
@@ -22,37 +20,8 @@ class ControladorFactura
 
   static public function ctrInfoFacturas(){
 
-     // Añadir encabezados CORS
-     header("Access-Control-Allow-Origin: *");
-     header("Access-Control-Allow-Methods: GET, POST, OPTIONS, PUT, DELETE");
-     header("Access-Control-Allow-Headers: Content-Type, Authorization");
- 
-
     $respuesta = ModeloFactura::mdlInfoFacturas();
     return $respuesta;
-  }
-
-  static public function ctrRegFactura(){
-
-     // Añadir encabezados CORS
-     header("Access-Control-Allow-Origin: *");
-     header("Access-Control-Allow-Methods: GET, POST, OPTIONS, PUT, DELETE");
-     header("Access-Control-Allow-Headers: Content-Type, Authorization");
- 
-
-    require "../modelo/FacturaModelo.php";
-
-    $password = password_hash($_POST["password"], PASSWORD_DEFAULT);
-
-    $data = array(
-      "loginFactura" => $_POST["login"],
-      "password" => $password,
-      "perfil" => "Moderador"
-    );
-
-    $respuesta = ModeloFactura::mdlRegFactura($data);
-
-    echo $respuesta;
   }
 
   static public function ctrInfoFactura($id){
