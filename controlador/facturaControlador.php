@@ -8,7 +8,7 @@ if (isset($ruta["query"])) {
     $ruta["query"] == "ctrNuevoCufd" ||
     $ruta["query"] == "ctrLeyenda" ||
     $ruta["query"] == "ctrRegistrarFactura" ||
-    $ruta["query"] == "ctrEliFactura"){
+    $ruta["query"] == "ctrAnularFactura"){
     $metodo = $ruta["query"];
     $Factura = new ControladorFactura();
     $Factura->$metodo();
@@ -36,18 +36,13 @@ class ControladorFactura
     return $respuesta;
   }
 
-  static public function ctrEliFactura(){
+  static public function ctrAnularFactura(){
 
-     // Añadir encabezados CORS
-     header("Access-Control-Allow-Origin: *");
-     header("Access-Control-Allow-Methods: GET, POST, OPTIONS, PUT, DELETE");
-     header("Access-Control-Allow-Headers: Content-Type, Authorization");
- 
 
     require "../modelo/FacturaModelo.php";
-    $id = $_POST["id"];
+    $cuf = $_POST["cuf"];
 
-    $respuesta = ModeloFactura::mdlEliFactura($id);
+    $respuesta = ModeloFactura::mdlAnularFactura($cuf);
     echo $respuesta;
   }
 
