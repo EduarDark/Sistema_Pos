@@ -58,6 +58,9 @@
                       <button class="btn btn-danger" onclick="MEliFactura('<?php echo $value["cuf"]; ?>')">
                         <i class="fas fa-trash"></i>
                       </button>
+                      <a href="vista/factura/ImpFactura.php?id=<?php echo $value["id_factura"]; ?>" class="btn btn-success" target="_blank" style="font: awesome;">
+                        <i class="fas fa-print"></i>
+                      </a>
                     </div>
                   </td>
                 </tr>
