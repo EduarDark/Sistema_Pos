@@ -107,5 +107,10 @@ class ControladorProducto
         echo json_encode($respuesta);
     }
 
+    static public function ctrCantidadProductos(){
+        $respuesta=ModeloProducto::mdlCantidadProductos();
+        return ($respuesta);
+        //echo $respuesta;
+    }
 
 }

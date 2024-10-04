@@ -86,4 +86,9 @@ class ControladorCliente{
         echo json_encode($respuesta);
         //echo $respuesta;
     }
+    static public function ctrCantidadClientes(){
+        $respuesta=ModeloCliente::mdlCantidadClientes();
+        return ($respuesta);
+        //echo $respuesta;
+    }
 }

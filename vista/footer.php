@@ -40,10 +40,14 @@
 <script src="assest/plugins/daterangepicker/daterangepicker.js"></script>
 <!-- ChartJS -->
 <script src="assest/plugins/chart.js/Chart.min.js"></script>
+<!-- AdminLTE dashboard demo (This is only for demo purposes) -->
+<!-- <script src="assest/dist/js/pages/dashboard.js"></script> -->
+
 <script src="assest/js/usuario.js"></script>
 <script src="assest/js/cliente.js"></script>
 <script src="assest/js/producto.js"></script>
 <script src="assest/js/factura.js"></script>
+<script src="assest/js/reporte.js"></script>
 
 <!--===============
 seccion de modals

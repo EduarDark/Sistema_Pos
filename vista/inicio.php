@@ -1,4 +1,9 @@
-
+<?php
+$producto=ControladorProducto::ctrCantidadProductos();
+$ventas=ControladorFactura::ctrCantidadVentas();
+$cliente=ControladorCliente::ctrCantidadClientes();
+$usuario=ControladorUsuario::ctrCantidadUsuarios();
+?>
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
     <!-- Content Header (Page header) -->
@@ -9,7 +14,8 @@
             <h1 class="m-0">Panel de administracion</h1>
           </div><!-- /.col -->
           <div class="col-sm-6">
-            
+           <!-- daterange picker -->
+        <link rel="stylesheet" href="assest/plugins/daterangepicker/daterangepicker.css"> 
           </div><!-- /.col -->
         </div><!-- /.row -->
       </div><!-- /.container-fluid -->
@@ -19,18 +25,19 @@
     <!-- Main content -->
     <div class="content">
       <div class="container-fluid">
+        <!-- Small boxes (Stat box) -->
       <div class="row">
           <div class="col-lg-3 col-6">
             <!-- small box -->
             <div class="small-box bg-info">
               <div class="inner">
-                <h3>150</h3>
-                <p>New Orders</p>
+              <h3><?php echo $producto['producto'];?></h3>
+              <p>Productos</p>
               </div>
               <div class="icon">
                 <i class="ion ion-bag"></i>
               </div>
-              <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+              <a href="VFactura" class="small-box-footer">Detalles <i class="fas fa-arrow-circle-right"></i></a>
             </div>
           </div>
           <!-- ./col -->
@@ -38,13 +45,13 @@
             <!-- small box -->
             <div class="small-box bg-success">
               <div class="inner">
-                <h3>53<sup style="font-size: 20px">%</sup></h3>
-                <p>Bounce Rate</p>
+              <h3><?php echo $ventas['venta'];?></h3>
+              <p>Ventas</p>
               </div>
               <div class="icon">
                 <i class="ion ion-stats-bars"></i>
               </div>
-              <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+              <a href="VProducto" class="small-box-footer">Detalles <i class="fas fa-arrow-circle-right"></i></a>
             </div>
           </div>
           <!-- ./col -->
@@ -52,13 +59,13 @@
             <!-- small box -->
             <div class="small-box bg-warning">
               <div class="inner">
-                <h3>44</h3>
-                <p>User Registrations</p>
+              <h3><?php echo $cliente['cliente'];?></h3>
+              <p>Clientes</p>
               </div>
               <div class="icon">
                 <i class="ion ion-person-add"></i>
               </div>
-              <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+              <a href="VCliente" class="small-box-footer">Detalles <i class="fas fa-arrow-circle-right"></i></a>
             </div>
           </div>
           <!-- ./col -->
@@ -66,18 +73,28 @@
             <!-- small box -->
             <div class="small-box bg-danger">
               <div class="inner">
-                <h3>65</h3>
-                <p>Unique Visitors</p>
+              <h3><?php echo $usuario['usuario'];?></h3>
+              <p>Usuarios</p>
               </div>
               <div class="icon">
                 <i class="ion ion-pie-graph"></i>
               </div>
-              <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+              <a href="VUsuario" class="small-box-footer">Detalles <i class="fas fa-arrow-circle-right"></i></a>
             </div>
           </div>
           <!-- ./col -->
         </div>
         <!-- /.row -->
+          <!-- Date and time range -->
+          <div class="form-group">
+                  <label>Seleccione un rango de fecha:</label>
+                  <div class="input-group">
+                    <button type="button" class="btn btn-default float-right" id="daterange-btn">
+                      <i class="far fa-calendar-alt"></i> Date range picker
+                      <i class="fas fa-caret-down"></i>
+                    </button>
+                  </div>
+                </div>
                   <!-- solid sales graph -->
             <div class="card bg-gradient-info">
               <div class="card-header border-0">
